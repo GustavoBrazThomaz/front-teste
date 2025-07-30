@@ -29,8 +29,8 @@ export const theme = createGlobalTheme(":root", {
 
     error: COLOR_PALETTE.red[300],
 
-    disabledBackground: COLOR_PALETTE.neutral[300], // TO DO
-    disabledForeground: COLOR_PALETTE.neutral[300], // TO DO
+    disabledBackground: COLOR_PALETTE.neutral[750], 
+    disabledForeground: COLOR_PALETTE.neutral[300], 
 
     highlightSuccessEntrypoint: COLOR_PALETTE.alpha.green[500],
     highlightSuccessEndpoint: COLOR_PALETTE.alpha.neutral[50],
