@@ -16,7 +16,6 @@ export const SidebarRoot: FC<SidebarRootProps> = (props) => {
           className={styles.sideBarDefenseLogoSmallStyle}
           size="small"
         />
-
         <p className={styles.sideBarTitleHeaderStyle}>Middlewares e Centrais</p>
       </header>
 

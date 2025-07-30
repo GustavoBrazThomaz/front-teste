@@ -3,9 +3,6 @@ import { style } from "@vanilla-extract/css";
 export const homeLayoutStyle = style({
   width: "100%",
   height: "100%",
-  paddingTop: "1rem",
-  paddingBottom: "1rem",
-  paddingLeft: "1rem",
   display: "flex",
   flexDirection: "row",
 });
@@ -19,5 +16,5 @@ export const containerPageStyles = style({
 export const headerGroupStyles = style({
   display: "flex",
   alignItems: "center",
-  marginLeft: "5%",
+  marginLeft: "2rem",
 });

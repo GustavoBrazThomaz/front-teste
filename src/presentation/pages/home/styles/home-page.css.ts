@@ -1,8 +1,8 @@
+import { theme } from "@components/styles/theme/theme.css";
 import { style } from "@vanilla-extract/css";
 
-
 export const containerPage = style({
-    marginTop: "20rem",
-    marginLeft: "5%",
-    height: "90vh",
+  height: "100%",
+  backgroundColor: theme.colors.background,
+  padding: "2rem"
 });

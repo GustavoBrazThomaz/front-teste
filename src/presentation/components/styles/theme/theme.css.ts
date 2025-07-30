@@ -1,5 +1,4 @@
 import { createGlobalTheme } from "@vanilla-extract/css";
-
 import { COLOR_PALETTE } from "./color-palette";
 
 export const theme = createGlobalTheme(":root", {

@@ -1,10 +1,10 @@
-import { style } from '@vanilla-extract/css';
+import { style } from "@vanilla-extract/css";
 
-import { theme } from '../../../styles/theme/theme.css';
+import { theme } from "../../../styles/theme/theme.css";
 
 export const containerStyle = style({
-  minWidth: '4.8rem',
-  minHeight: '4.8rem',
+  minWidth: "4.8rem",
+  minHeight: "4.8rem",
 
   fontFamily: theme.fonts.primary,
   color: theme.colors.neutral,
@@ -15,9 +15,9 @@ export const containerStyle = style({
 export const containerSolidStyle = style({});
 
 export const containerVoidStyle = style({
-  background: 'transparent',
-  borderWidth: '1px',
-  borderStyle: 'solid',
+  background: "transparent",
+  borderWidth: "1px",
+  borderStyle: "solid",
   borderColor: theme.colors.secondaryForeground,
 });
 
@@ -42,26 +42,26 @@ export const containerAlertStyle = style({
 });
 
 export const containerMediumBorderRadiusStyle = style({
-  borderRadius: '16px',
+  borderRadius: "16px",
 });
 
 export const containerSmallBorderRadiusStyle = style({
-  borderRadius: '8px',
+  borderRadius: "8px",
 });
 
 export const containerCentralizedStyle = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 export const containerSelectedStyle = style({
-  borderWidth: '1px',
-  borderStyle: 'solid',
+  borderWidth: "1px",
+  borderStyle: "solid",
 });
 
 export const containerTaggedStyle = style({
-  borderLeftWidth: '0.8rem',
+  borderLeftWidth: "0.8rem",
 });
 
 export const containerForegroundStyle = style({});
