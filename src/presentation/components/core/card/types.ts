@@ -7,4 +7,6 @@ export type CardTitleRootVariants = RecipeVariants<typeof cardTitleRecipe>;
 export type CardRootProps = HTMLAttributes<HTMLDivElement>;
 export type CardTitleProps = HTMLAttributes<HTMLParagraphElement> &
   CardTitleRootVariants;
+
+export type CardContentProps = HTMLAttributes<HTMLDivElement>;
 export type CardActionsProps = HTMLAttributes<HTMLDivElement>;

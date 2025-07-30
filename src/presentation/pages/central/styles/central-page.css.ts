@@ -6,3 +6,9 @@ export const containerPage = style({
   backgroundColor: theme.colors.background,
   padding: "2rem",
 });
+
+export const searchContainer = style({
+  display: "flex",
+  gap: "1.5rem",
+  flexDirection: "row",
+});
