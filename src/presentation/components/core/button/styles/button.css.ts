@@ -15,16 +15,26 @@ export const buttonDefaultStyle = style({
     "&:hover": {
       backgroundColor: theme.colors.primarySurface,
     },
+    "&:disabled": {
+      borderColor: theme.colors.disabledForeground,
+      backgroundColor: theme.colors.disabledBackground,
+      cursor: "not-allowed",
+    },
   },
 });
 
 export const buttonPrimaryStyle = style({
-  border: `1px solid ${theme.colors.primaryForeground}`,
+  border: `1px solid ${theme.colors.secondaryForeground}`,
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.primaryForeground,
   selectors: {
     "&:hover": {
       backgroundColor: theme.colors.primarySurface,
+    },
+    "&:disabled": {
+      borderColor: theme.colors.disabledForeground,
+      backgroundColor: theme.colors.disabledBackground,
+      cursor: "not-allowed",
     },
   },
 });
@@ -37,6 +47,11 @@ export const buttonSecondaryStyle = style({
     "&:hover": {
       backgroundColor: theme.colors.primarySurface,
     },
+    "&:disabled": {
+      borderColor: theme.colors.disabledForeground,
+      backgroundColor: theme.colors.disabledBackground,
+      cursor: "not-allowed",
+    },
   },
 });
 
@@ -47,6 +62,11 @@ export const buttonDangerStyle = style({
   selectors: {
     "&:hover": {
       backgroundColor: theme.colors.primarySurface,
+    },
+    "&:disabled": {
+      borderColor: theme.colors.disabledForeground,
+      backgroundColor: theme.colors.disabledBackground,
+      cursor: "not-allowed",
     },
   },
 });

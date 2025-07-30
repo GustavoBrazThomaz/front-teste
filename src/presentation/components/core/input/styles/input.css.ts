@@ -23,3 +23,7 @@ export const inputStyle = style({
     },
   },
 });
+
+export const buttonFullWidth = style({
+  width: "100%",
+});
