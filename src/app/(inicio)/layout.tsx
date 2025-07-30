@@ -22,7 +22,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           <Header.RightGroup className={styles.headerGroupStyles}>
             <Title.Root size="small">
               <Title.Text className={styles.headerRightTextStyles}>
-                <ServerIcon customSize="16" />
+                <ServerIcon customSize="2.3rem" />
                 Total de centrais: 0
               </Title.Text>
             </Title.Root>
