@@ -18,3 +18,9 @@ export const headerGroupStyles = style({
   alignItems: "center",
   marginLeft: "2rem",
 });
+
+export const headerRightTextStyles = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "0.8rem",
+});

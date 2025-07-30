@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
-
 import { fonts } from "@components/styles/fonts";
 import "@styles/global.css";
 

@@ -5,6 +5,6 @@ export const headerRightGroupStyle = style({
   display: 'flex',
   justifyContent: 'flex-end',
   flexDirection: 'row',
-  paddingRight: '8rem',
+  paddingRight: '2rem',
   gap: '1rem',
 });
