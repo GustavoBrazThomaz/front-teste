@@ -11,5 +11,9 @@ export const paginationPreviousStyle = style({
     "&:hover": {
       background: theme.colors.disabledBackground,
     },
+    "&:disabled": {
+      color: theme.colors.neutral,
+      cursor: "not-allowed",
+    },
   },
 });
