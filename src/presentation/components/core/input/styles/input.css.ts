@@ -2,11 +2,11 @@ import { theme } from "@components/styles/theme/theme.css";
 import { style } from "@vanilla-extract/css";
 
 export const inputStyle = style({
-  backgroundColor: theme.colors.secondarySurface,
+  backgroundColor: "transparent",
   color: theme.colors.primaryForeground,
   padding: "1.3rem",
   borderRadius: "1rem",
-  border: `1px solid ${theme.colors.secondaryForeground}`,
+  border: `1px solid ${theme.colors.primaryNormal}`,
 
   selectors: {
     "&:disabled": {

@@ -15,5 +15,8 @@ export const paginationNextStyle = style({
       color: theme.colors.neutral,
       cursor: "not-allowed",
     },
+    "&:focus": {
+      borderColor: theme.colors.foregroundSelectionBackground,
+    },
   },
 });

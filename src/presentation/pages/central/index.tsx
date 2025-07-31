@@ -8,6 +8,8 @@ import { Button } from "@components/core/button";
 import { DataTable } from "@components/ui/data-table";
 import { CentralType } from "../../types/central-types";
 import { ColumnDef } from "@tanstack/react-table";
+import { Select } from "@components/core/select/Select";
+import { SelectOption } from "@components/core/select/types";
 
 export const mockCentrals: CentralType[] = [
   { id: 1, name: "Central Principal SP", modelId: 1, mac: "AA:BB:CC:DD:EE:FF" },
@@ -178,6 +180,22 @@ export function CentralPage() {
     },
   ];
 
+  const options: SelectOption[] = [
+    {
+      label: "Ascendente",
+      value: "asc",
+    },
+    {
+      label: "Decrescente",
+      value: "desc",
+      disabled: true,
+    },
+    {
+      label: "A-Z",
+      value: "a-z",
+    },
+  ];
+
   return (
     <Container className={styles.containerPage}>
       <Title.Root size="medium">
@@ -188,6 +206,7 @@ export function CentralPage() {
         <Card.Content className={styles.searchContainer}>
           <Input placeholder="Buscar..." fullWidth />
           <Button variants="default">Buscar</Button>
+          <Select options={options} onChange={(value) => console.log(value)} />
         </Card.Content>
       </Card.Root>
 

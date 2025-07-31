@@ -5,6 +5,11 @@ export const buttonStyle = style({
   padding: "1rem 2rem",
   borderRadius: "1rem",
   cursor: "pointer",
+  selectors: {
+    "&:focus": {
+      borderColor: theme.colors.foregroundSelectionBackground,
+    },
+  },
 });
 
 export const buttonDefaultStyle = style({
