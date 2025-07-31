@@ -73,5 +73,8 @@ export const buttonDangerStyle = style({
       backgroundColor: theme.colors.disabledBackground,
       cursor: "not-allowed",
     },
+    "&:focus": {
+      borderColor: theme.colors.alert,
+    },
   },
 });
