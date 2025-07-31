@@ -9,8 +9,11 @@ import { Button } from "@components/core/button";
 import { DataTable } from "@components/ui/data-table";
 import { CentralType } from "../../types/central-types";
 import { Select } from "@components/core/select/Select";
+import { useCentralStore } from "@stores/useCentralStore";
 
 export function CentralPage() {
+  const { totalCentral } = useCentralStore();
+
   return (
     <Container className={styles.containerPageStyle}>
       <div className={styles.headerStyle}>
@@ -39,7 +42,7 @@ export function CentralPage() {
           <Title.Root size="medium" className={styles.titleWithSubTitleStyle}>
             <Title.Text>Lista de Centrais</Title.Text>
             <Title.Item className={styles.subTitleStyle}>
-              {constants.mockCentrals.length} centrais encontradas
+              {totalCentral} centrais encontradas
             </Title.Item>
           </Title.Root>
 

@@ -4,7 +4,7 @@ import { Title } from "@components/core/title";
 import { MENU_RESOURCES_CONFIGS } from "@config/menu";
 import { ReactNode } from "react";
 import * as styles from "./styles.css";
-import { ServerIcon } from "@components/icons/server";
+import { TotalCentral } from "@components/core/total-central";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
@@ -20,12 +20,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
             </Title.Root>
           </Header.LeftGroup>
           <Header.RightGroup className={styles.headerGroupStyles}>
-            <Title.Root size="small">
-              <Title.Text className={styles.headerRightTextStyles}>
-                <ServerIcon customSize="2.3rem" />
-                Total de centrais: 0
-              </Title.Text>
-            </Title.Root>
+            <TotalCentral />
           </Header.RightGroup>
         </Header.Root>
         {children}
