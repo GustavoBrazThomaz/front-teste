@@ -29,9 +29,9 @@ export function DataTable<T>(props: DataTableProps<T>) {
       <Table.Root>
         <Table.Head>
           {table.getHeaderGroups().map((headerGroup) => (
-            <Table.Row>
+            <Table.Row key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <Table.Cell>
+                <Table.Cell key={header.id}>
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
