@@ -11,8 +11,7 @@ export const selectTriggerStyle = style({
   display: "flex",
   flexDirection: "row",
   gap: "1rem",
-  width: "100%",
-  minWidth: "10rem",
+
   alignItems: "center",
   justifyItems: "center",
   border: `1px solid ${theme.colors.primaryNormal}`,
