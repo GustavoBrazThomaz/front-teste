@@ -16,11 +16,3 @@ export type PaginationCountProps = HTMLAttributes<HTMLDivElement> & {
   pageTotal: number;
   pageNumber: number;
 };
-
-/*
-Criar compose desse componente
-Pagination.Root
-Pagination.Next
-Pagination.Previous
-Pagination.Count
-*/
