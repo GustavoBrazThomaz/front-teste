@@ -29,8 +29,8 @@ export const theme = createGlobalTheme(":root", {
 
     error: COLOR_PALETTE.red[300],
 
-    disabledBackground: COLOR_PALETTE.neutral[750], 
-    disabledForeground: COLOR_PALETTE.neutral[300], 
+    disabledBackground: COLOR_PALETTE.neutral[750],
+    disabledForeground: COLOR_PALETTE.neutral[300],
 
     highlightSuccessEntrypoint: COLOR_PALETTE.alpha.green[500],
     highlightSuccessEndpoint: COLOR_PALETTE.alpha.neutral[50],
@@ -48,6 +48,7 @@ export const theme = createGlobalTheme(":root", {
     tableColorPrimary: COLOR_PALETTE.neutral[850],
     tableRowOdd: COLOR_PALETTE.neutral[860],
     tableRowEven: COLOR_PALETTE.neutral[700],
+    tableHeadBackground: COLOR_PALETTE.neutral[950],
   },
   fonts: {
     primary: "var(--nunito-font), sans-serif",
