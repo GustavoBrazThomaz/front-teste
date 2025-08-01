@@ -30,7 +30,6 @@ export const searchContainerStyle = style({
   display: "flex",
   gap: "1.5rem",
   flexDirection: "row",
-
 });
 
 export const tableContainerStyle = style({
@@ -50,4 +49,10 @@ export const itemsPerPageContainerStyle = style({
   fontSize: "1.8rem",
   alignItems: "center",
   gap: "1rem",
+});
+
+export const actionCellStyle = style({
+  display: "flex",
+  justifyContent: "flex-end",
+  gap: "1.5rem",
 });

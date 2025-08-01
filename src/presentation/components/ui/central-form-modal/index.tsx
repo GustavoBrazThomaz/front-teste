@@ -105,10 +105,7 @@ export const CentralFormModal = () => {
               >
                 Cancelar
               </Button>
-              <Button
-                type="submit"
-                variants="primary"
-              >
+              <Button type="submit" variants="primary">
                 Salvar
               </Button>
             </Modal.Actions>

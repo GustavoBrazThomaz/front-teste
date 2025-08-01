@@ -4,3 +4,10 @@ export type CentralType = {
   modelId: number;
   mac: string;
 };
+
+export type CentralTableType = {
+  id: number;
+  name: string;
+  modelName: string;
+  mac: string;
+};
