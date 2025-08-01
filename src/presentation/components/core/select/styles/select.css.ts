@@ -7,12 +7,16 @@ export const selectRootStyle = style({
   flexDirection: "column",
 });
 
+export const selectChevronStyle = style({
+  marginBottom: "0.1rem",
+});
+
 export const selectTriggerStyle = style({
   display: "flex",
   flexDirection: "row",
-  gap: "1rem",
+  gap: "0.8rem",
   alignItems: "center",
-  justifyItems: "center",
+  justifyContent: "space-between",
   border: `1px solid ${theme.colors.primaryNormal}`,
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.primaryForeground,
@@ -43,6 +47,7 @@ export const selectViewPortStyle = style({
   maxWidth: "130%",
   left: "50%",
   transform: "translateX(-50%) ",
+  zIndex: "1",
 });
 
 export const selectOptionsListStyle = style({
@@ -54,11 +59,12 @@ export const selectOptionsListStyle = style({
   flexDirection: "column",
   fontSize: "1.5rem",
   borderRadius: "1rem",
+  zIndex: "50",
   border: `1px solid ${theme.colors.primaryNormal}`,
 });
 
 export const selectOptionStyle = style({
-  padding: "1rem",
+  padding: "0.5rem",
   backgroundColor: "transparent",
   color: "white",
   cursor: "pointer",
@@ -67,6 +73,7 @@ export const selectOptionStyle = style({
   textOverflow: "ellipsis",
   overflow: "hidden",
   whiteSpace: "nowrap",
+
   selectors: {
     "&:hover": {
       backgroundColor: theme.colors.primaryNormal,

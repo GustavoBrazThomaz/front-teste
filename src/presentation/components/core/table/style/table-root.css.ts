@@ -7,5 +7,4 @@ export const tableRootStyle = style({
   fontSize: "2rem",
   borderRadius: "0.5rem",
   borderSpacing: "0",
-  
 });

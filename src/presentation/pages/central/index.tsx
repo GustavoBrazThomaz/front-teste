@@ -10,9 +10,10 @@ import { DataTable } from "@components/ui/data-table";
 import { CentralType } from "../../types/central-types";
 import { Select } from "@components/core/select/Select";
 import { useCentralStore } from "@stores/useCentralStore";
+import { CentralFormModal } from "@components/ui/central-form-modal";
 
 export function CentralPage() {
-  const { totalCentral } = useCentralStore();
+  const { totalCentral, toggleCentralModal } = useCentralStore();
 
   return (
     <Container className={styles.containerPageStyle}>
@@ -23,7 +24,9 @@ export function CentralPage() {
             Gerencie suas centrais cadastradas
           </Title.Item>
         </Title.Root>
-        <Button variants="secondary">Criar central</Button>
+        <Button onClick={() => toggleCentralModal()} variants="secondary">
+          Criar central
+        </Button>
       </div>
 
       <Card.Root>
@@ -61,6 +64,8 @@ export function CentralPage() {
           columns={constants.columns}
         />
       </Card.Root>
+
+      <CentralFormModal />
     </Container>
   );
 }
