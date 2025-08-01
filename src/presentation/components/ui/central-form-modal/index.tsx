@@ -1,6 +1,6 @@
 "use client";
 import { Modal } from "@components/core/modal";
-import { useCentralStore } from "@stores/useCentralStore";
+import { useCentralStore } from "@stores/use-central-store";
 import * as styles from "./styles/central-form-modal.css";
 import { Input } from "@components/core/input";
 import { Select } from "@components/core/select/Select";
@@ -105,7 +105,7 @@ export const CentralFormModal = () => {
 
   return (
     <Modal.Root open={centralModal.open} onOpenChange={handleClose}>
-      <Modal.Body>
+      <Modal.Body className={styles.centralFormModalBodyStyle}>
         <form onSubmit={handleSubmit(submitForm)}>
           <Modal.Content title={title} className={styles.centralFormModalStyle}>
             <FormItem label="Nome da central" error={errors.name?.message}>

@@ -4,7 +4,7 @@ import { TotalCentralProps } from "./types";
 import { ServerIcon } from "@components/icons/server";
 import classNames from "classnames";
 import { totalCentralStyle } from "./styles/total-central.css";
-import { useCentralStore } from "@stores/useCentralStore";
+import { useCentralStore } from "@stores/use-central-store";
 
 export const TotalCentral: FC<TotalCentralProps> = (props) => {
   const { className, ...rest } = props;

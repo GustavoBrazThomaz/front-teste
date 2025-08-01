@@ -5,9 +5,7 @@ export const modalBodyStyle = style({
   position: "fixed",
   top: "50%",
   left: "50%",
-
   maxHeight: "60vh",
-  minWidth: "30vw",
   maxWidth: "90vw",
   transform: "translate(-50%, -50%)",
   zIndex: "101",

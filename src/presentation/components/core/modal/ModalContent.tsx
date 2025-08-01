@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { FC } from "react";
 import { ModalContentProps } from "./types";
-import { modalContentStyle } from "./styles/modal-content.css";
+import * as styles from "./styles/modal-content.css";
 import {
   DialogContent,
   DialogDescription,
@@ -10,10 +10,11 @@ import {
 
 export const ModalContent: FC<ModalContentProps> = (props) => {
   const { children, className, title, description, ...rest } = props;
-  const classes = classNames(modalContentStyle, className);
+
+  const classes = classNames(styles.modalContentStyle, className);
   return (
     <div className={classes} {...rest}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle className={styles.modalTitleStyle}>{title}</DialogTitle>
       <DialogDescription>{description}</DialogDescription>
       {children}
     </div>

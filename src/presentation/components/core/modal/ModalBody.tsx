@@ -17,8 +17,9 @@ export const ModalBody: FC<ModalBodyProps> = (props) => {
   return (
     <DialogPortal>
       <DialogOverlay className={styles.modalOverlayStyle} />
-
-      <DialogContent className={classes}>{children}</DialogContent>
+      <DialogContent className={classes} {...rest}>
+        {children}
+      </DialogContent>
     </DialogPortal>
   );
 };
