@@ -9,3 +9,8 @@ export const centralFormModalStyle = style({
 export const macInputStyle = style({
   textTransform: "uppercase",
 });
+
+export const centralFormModalBodyStyle = style({
+  maxWidth: "50rem",
+  width: "100%"
+});

@@ -13,18 +13,6 @@
       "modelId": "2"
     },
     {
-      "id": "1c5ca947-1b03-4131-8073-e2652e623914",
-      "name": "Central 7",
-      "mac": "DS:AI:OU:D8:23:32",
-      "modelId": "3"
-    },
-    {
-      "id": "036ea072-2ea2-4ea4-9525-a425b00f0a39",
-      "name": "Central 4",
-      "mac": "SD:AI:HD:92:3D:23",
-      "modelId": "6"
-    },
-    {
       "id": "df2d4d77-396e-4a21-8e75-9354346ad935",
       "name": "Central 5",
       "mac": "10:E0:09:00:50:01",

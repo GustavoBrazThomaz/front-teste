@@ -1,4 +1,5 @@
 "use client";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Container } from "@components/core/container";
 import { Title } from "@components/core/title";
 import * as styles from "./styles/central-page.css";
@@ -7,7 +8,7 @@ import { Input } from "@components/core/input";
 import { Card } from "@components/core/card";
 import { Button } from "@components/core/button";
 import { Select } from "@components/core/select/Select";
-import { useCentralStore } from "@stores/useCentralStore";
+import { useCentralStore } from "@stores/use-central-store";
 import { CentralFormModal } from "@components/ui/central-form-modal";
 import { useCentral, useGetCentrals } from "../../api/hooks/useCentral";
 import { DataTable } from "@components/ui/data-table";
@@ -15,11 +16,13 @@ import { CentralTableType } from "../../types/central-types";
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useDeleteModalStore } from "@stores/use-delete-modal-store";
+import { DeleteModal } from "@components/ui/delete-modal";
 
 export function CentralPage() {
   const { totalCentral, toggleCentralModal } = useCentralStore();
   const { data, isLoading, isError } = useGetCentrals();
+  const { toggleDeleteModal } = useDeleteModalStore();
   const { deleteCentral } = useCentral();
 
   const tableColumns: ColumnDef<CentralTableType>[] = [
@@ -37,7 +40,7 @@ export function CentralPage() {
             <EditIcon customSize="1.8rem" />
           </Button>
           <Button
-            onClick={() => deleteCentral.mutate(row.getValue("id"))}
+            onClick={() => toggleDeleteModal(row.getValue("id"))}
             type="button"
             variants="danger"
           >
@@ -47,6 +50,10 @@ export function CentralPage() {
       ),
     },
   ];
+
+  const handleDeleteCentral = (id: string) => {
+    deleteCentral.mutate(id);
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>error</p>;
@@ -99,6 +106,11 @@ export function CentralPage() {
         <DataTable<CentralTableType> data={data} columns={tableColumns} />
       </Card.Root>
 
+      <DeleteModal
+        title="Excluir Central"
+        description="Você tem certeza de que deseja excluir esta central?"
+        handleDelete={handleDeleteCentral}
+      />
       <CentralFormModal />
       <ReactQueryDevtools initialIsOpen={false} />
     </Container>
