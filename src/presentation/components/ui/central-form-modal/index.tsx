@@ -1,3 +1,4 @@
+"use client";
 import { Modal } from "@components/core/modal";
 import { useCentralStore } from "@stores/useCentralStore";
 import * as styles from "./styles/central-form-modal.css";
@@ -10,68 +11,110 @@ import { SelectOption } from "@components/core/select/types";
 import { InputMask } from "@react-input/mask";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { centralFormSchema, centralFormType } from "./schema";
+import { useCentral, useGetCentralById } from "../../../api/hooks/useCentral";
+import { useEffect } from "react";
+import { useGetModels } from "../../../api/hooks/useModel";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const CentralFormModal = () => {
-  const { incTotalCentral, toggleCentralModal, centralModal } =
-    useCentralStore();
+  const { toggleCentralModal, centralModal } = useCentralStore();
   const hasId = !!centralModal.id;
-  const selectOptions = [
-    {
-      value: "1",
-      label: "AMT 4010",
-    },
-    {
-      value: "2",
-      label: "AMT 4010 SMART",
-    },
-    {
-      value: "3",
-      label: "AMT 2018",
-    },
-    {
-      value: "4",
-      label: "AMT 2018 E/EG",
-    },
-    {
-      value: "5",
-      label: "AMT 1000",
-    },
-    {
-      value: "6",
-      label: "AMT 8000",
-    },
-  ];
-  const titleText = hasId ? "Editar central" : "Criar nova central";
+  const title = hasId ? "Editar central" : "Criar nova central";
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
+    reset,
   } = useForm<centralFormType>({
     resolver: zodResolver(centralFormSchema),
+    mode: "onSubmit",
   });
 
-  const submitForm = (form: centralFormType) => {
-    if (hasId) {
-      return "update";
-    }
+  const { data, isLoading } = useGetCentralById(
+    centralModal.id as string,
+    hasId
+  );
+  const { modelsSelectOptions } = useGetModels();
+  const { newCentral, updateCentral } = useCentral();
+  const queryClient = useQueryClient();
 
-    incTotalCentral();
+  const options = modelsSelectOptions();
+
+  useEffect(() => {
+    if (data && hasId) {
+      reset({
+        name: data.name,
+        mac: data.mac,
+        modelId: data.modelId,
+        originalMac: data.mac,
+      });
+    }
+  }, [data]);
+
+  const handleClose = () => {
+    toggleCentralModal();
+    reset({
+      name: "",
+      mac: "",
+      modelId: "",
+      originalMac: undefined,
+    });
   };
 
+  const submitForm = async (form: centralFormType) => {
+    const { name, modelId, mac } = form;
+    const centralForm = {
+      name,
+      mac,
+      modelId: modelId,
+    };
+
+    if (hasId && centralModal.id) {
+      updateCentral.mutate(
+        {
+          id: centralModal.id,
+          ...centralForm,
+        },
+        {
+          onSuccess(_, variables) {
+            queryClient.setQueryData(
+              ["fetchCentralById", centralModal.id],
+              () => {
+                return variables;
+              }
+            );
+            handleClose();
+          },
+        }
+      );
+      return;
+    }
+
+    newCentral.mutate(centralForm, {
+      onSuccess() {
+        handleClose();
+      },
+    });
+  };
+
+  if (hasId) {
+    if (isLoading) return <p>Loading</p>;
+    if (!data) return <p>Error</p>;
+  }
+
   return (
-    <Modal.Root
-      open={centralModal.open}
-      onOpenChange={() => toggleCentralModal()}
-    >
+    <Modal.Root open={centralModal.open} onOpenChange={handleClose}>
       <Modal.Body>
         <form onSubmit={handleSubmit(submitForm)}>
-          <Modal.Content
-            title={titleText}
-            className={styles.centralFormModalStyle}
-          >
+          <Modal.Content title={title} className={styles.centralFormModalStyle}>
             <FormItem label="Nome da central" error={errors.name?.message}>
-              <Input {...register("name")} placeholder="Exemplo" fullWidth />
+              <Input
+                {...register("name")}
+                placeholder="Exemplo"
+                fullWidth
+                autoFocus={false}
+              />
             </FormItem>
 
             <FormItem label="Endereço Mac" error={errors.mac?.message}>
@@ -88,7 +131,8 @@ export const CentralFormModal = () => {
 
             <FormItem label="Modelos" error={errors.modelId?.message}>
               <Select
-                options={selectOptions}
+                options={options}
+                defaultValue={data?.modelId ? String(data.modelId) : undefined}
                 onChange={(event) => {
                   const valueChoose = event as SelectOption;
                   setValue("modelId", valueChoose.value);
@@ -98,11 +142,7 @@ export const CentralFormModal = () => {
             </FormItem>
 
             <Modal.Actions>
-              <Button
-                type="button"
-                onClick={() => toggleCentralModal()}
-                variants="danger"
-              >
+              <Button type="button" onClick={handleClose} variants="danger">
                 Cancelar
               </Button>
               <Button type="submit" variants="primary">

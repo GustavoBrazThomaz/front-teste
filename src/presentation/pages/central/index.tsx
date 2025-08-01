@@ -9,16 +9,18 @@ import { Button } from "@components/core/button";
 import { Select } from "@components/core/select/Select";
 import { useCentralStore } from "@stores/useCentralStore";
 import { CentralFormModal } from "@components/ui/central-form-modal";
-import { useGetCentrals } from "../../api/hooks/useCentral";
+import { useCentral, useGetCentrals } from "../../api/hooks/useCentral";
 import { DataTable } from "@components/ui/data-table";
 import { CentralTableType } from "../../types/central-types";
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export function CentralPage() {
   const { totalCentral, toggleCentralModal } = useCentralStore();
   const { data, isLoading, isError } = useGetCentrals();
+  const { deleteCentral } = useCentral();
 
   const tableColumns: ColumnDef<CentralTableType>[] = [
     ...constants.columns,
@@ -34,7 +36,11 @@ export function CentralPage() {
           >
             <EditIcon customSize="1.8rem" />
           </Button>
-          <Button type="button" variants="danger">
+          <Button
+            onClick={() => deleteCentral.mutate(row.getValue("id"))}
+            type="button"
+            variants="danger"
+          >
             <TrashIcon customSize="1.8rem" />
           </Button>
         </div>
@@ -94,6 +100,7 @@ export function CentralPage() {
       </Card.Root>
 
       <CentralFormModal />
+      <ReactQueryDevtools initialIsOpen={false} />
     </Container>
   );
 }
