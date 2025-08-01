@@ -1,12 +1,12 @@
 export type CentralType = {
-  id: number;
+  id: string;
   name: string;
-  modelId: number;
+  modelId: string;
   mac: string;
 };
 
 export type CentralTableType = {
-  id: number;
+  id: string;
   name: string;
   modelName: string;
   mac: string;

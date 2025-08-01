@@ -39,3 +39,7 @@ globalStyle("body", {
   backgroundColor: theme.colors.background,
   color: theme.colors.primaryForeground,
 });
+
+globalStyle(".tsqd-parent-container", {
+  fontSize: "2rem",
+});
