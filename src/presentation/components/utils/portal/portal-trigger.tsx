@@ -17,7 +17,7 @@ export const PortalTrigger: FC<PortalTriggerProps> = (props) => {
   const Component = asChild ? Slot : 'button';
 
   return (
-    <Component {...rest} onClick={toggleOpened}>
+    <Component type='button' {...rest} onClick={toggleOpened}>
       {children}
     </Component>
   );

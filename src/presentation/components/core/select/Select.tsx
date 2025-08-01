@@ -1,14 +1,21 @@
 import { FC, useEffect, useState } from "react";
 import { SelectOption, SelectProps } from "./types";
 import classNames from "classnames";
-import * as style from "./styles/select.css";
+import * as styles from "./styles/select.css";
 import { Portal } from "@components/utils/portal";
 import { ChevronDownIcon } from "@components/icons/chevron-down";
 
 export const Select: FC<SelectProps> = (props) => {
-  const { className, children, options, onChange, defaultValue, ...rest } =
-    props;
-  const classes = classNames(style.selectRootStyle, className);
+  const {
+    className,
+    children,
+    options,
+    onChange,
+    defaultValue,
+    placeholder = "Selecione",
+    ...rest
+  } = props;
+  const classes = classNames(styles.selectRootStyle, className);
   const defaultOption = options.filter(
     (option) => option.value === defaultValue
   );
@@ -25,22 +32,25 @@ export const Select: FC<SelectProps> = (props) => {
   return (
     <Portal.Provider>
       <div className={classes} {...rest}>
-        <Portal.Trigger className={style.selectTriggerStyle}>
-          {value?.label ?? "Selecione"}
-          <ChevronDownIcon customSize="1.5rem" />
+        <Portal.Trigger className={styles.selectTriggerStyle}>
+          {value?.label ?? placeholder}
+          <ChevronDownIcon
+            customSize="1.5rem"
+            className={styles.selectChevronStyle}
+          />
         </Portal.Trigger>
-        <Portal.Viewport className={style.selectViewPortStyle}>
-          <div className={style.selectOptionsListStyle}>
+        <Portal.Viewport className={styles.selectViewPortStyle}>
+          <div className={styles.selectOptionsListStyle}>
             {options.map((item) => (
-              <button
+              <Portal.Close
+                onClick={() => handleChange(item)}
+                className={styles.selectOptionStyle}
                 type="button"
                 disabled={item.disabled ?? false}
                 key={`${item.value}_key`}
-                onClick={() => handleChange(item)}
-                className={style.selectOptionStyle}
               >
                 {item.label}
-              </button>
+              </Portal.Close>
             ))}
           </div>
         </Portal.Viewport>
