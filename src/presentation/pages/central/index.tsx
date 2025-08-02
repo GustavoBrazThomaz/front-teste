@@ -18,13 +18,17 @@ import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
 import { useDeleteModalStore } from "@stores/use-delete-modal-store";
 import { DeleteModal } from "@components/ui/delete-modal";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 export function CentralPage() {
   const { totalCentral, toggleCentralModal } = useCentralStore();
-  const { data, isLoading, isError } = useGetCentrals({
-    page: 1,
-    limit: 10,
-  });
+  const searchParams = useSearchParams();
+  const queryParams = {
+    page: parseInt(searchParams.get("page") || "0", 10),
+    limit: parseInt(searchParams.get("items_per_page") || "10", 10),
+  };
+  const { data, isError, refetch, isLoading } = useGetCentrals(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
   const { deleteCentral } = useCentral();
 
@@ -54,6 +58,10 @@ export function CentralPage() {
     },
   ];
 
+  useEffect(() => {
+    refetch();
+  }, [searchParams]);
+
   const handleDeleteCentral = (id: string) => {
     deleteCentral.mutate(id);
   };
@@ -63,51 +71,41 @@ export function CentralPage() {
   if (!data) return <p>error</p>;
 
   return (
-    <Container className={styles.containerPageStyle}>
-      <div className={styles.headerStyle}>
-        <Title.Root size="medium" className={styles.titleWithSubTitleStyle}>
-          <Title.Text>Centrais</Title.Text>
-          <Title.Item className={styles.subTitleStyle}>
-            Gerencie suas centrais cadastradas
-          </Title.Item>
-        </Title.Root>
-        <Button onClick={() => toggleCentralModal()} variants="secondary">
-          Criar central
-        </Button>
-      </div>
-
-      <Card.Root>
-        <Card.Content className={styles.searchContainerStyle}>
-          <Input placeholder="Buscar..." fullWidth />
-          <Button variants="default">Buscar</Button>
-          <Select
-            options={constants.options}
-            onChange={(value) => console.log(value)}
-          />
-        </Card.Content>
-      </Card.Root>
-
-      <Card.Root className={styles.tableContainerStyle}>
-        <div className={styles.tableTopContainerStyle}>
+    <React.Fragment>
+      <Container className={styles.containerPageStyle}>
+        <div className={styles.headerStyle}>
           <Title.Root size="medium" className={styles.titleWithSubTitleStyle}>
-            <Title.Text>Lista de Centrais</Title.Text>
+            <Title.Text>Centrais</Title.Text>
             <Title.Item className={styles.subTitleStyle}>
-              {totalCentral} centrais encontradas
+              Gerencie suas centrais cadastradas
             </Title.Item>
           </Title.Root>
-
-          <div className={styles.itemsPerPageContainerStyle}>
-            <p>Itens por página:</p>
-            <Select
-              defaultValue={"10"}
-              options={constants.itemsPerPage}
-              onChange={(option) => console.log(option)}
-            />
-          </div>
+          <Button onClick={() => toggleCentralModal()} variants="secondary">
+            Criar central
+          </Button>
         </div>
 
-        <DataTable<CentralTableType> data={data} columns={tableColumns} />
-      </Card.Root>
+        <Card.Root>
+          <Card.Content className={styles.searchContainerStyle}>
+            <Input placeholder="Buscar..." fullWidth />
+            <Button variants="default">Buscar</Button>
+            <Select
+              options={constants.options}
+              onChange={(value) => console.log(value)}
+            />
+          </Card.Content>
+        </Card.Root>
+
+        <Card.Root className={styles.tableContainerStyle}>
+          <DataTable<CentralTableType>
+            title="Lista de Centrais"
+            description={`${totalCentral} centrais encontradas`}
+            data={data}
+            columns={tableColumns}
+            total={totalCentral}
+          />
+        </Card.Root>
+      </Container>
 
       <DeleteModal
         title="Excluir Central"
@@ -116,6 +114,6 @@ export function CentralPage() {
       />
       <CentralFormModal />
       <ReactQueryDevtools initialIsOpen={false} />
-    </Container>
+    </React.Fragment>
   );
 }

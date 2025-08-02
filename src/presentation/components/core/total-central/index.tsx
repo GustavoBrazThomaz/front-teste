@@ -6,12 +6,11 @@ import classNames from "classnames";
 import { totalCentralStyle } from "./styles/total-central.css";
 import { useCentralStore } from "@stores/use-central-store";
 import { useGetCentralsTotal } from "../../../api/hooks/useCentral";
-import { Button } from "../button";
 
 export const TotalCentral: FC<TotalCentralProps> = (props) => {
   const { className, ...rest } = props;
   const classes = classNames(totalCentralStyle, className);
-  const { totalCentral, setTotalCentral, incTotalCentral } = useCentralStore();
+  const { totalCentral, setTotalCentral } = useCentralStore();
   const { data } = useGetCentralsTotal();
 
   useEffect(() => {
@@ -22,9 +21,6 @@ export const TotalCentral: FC<TotalCentralProps> = (props) => {
     <p className={classes} {...rest}>
       <ServerIcon customSize="2rem" />
       Total de centrais: {totalCentral}
-      <Button variants="danger" onClick={() => incTotalCentral()}>
-        Teste
-      </Button>
     </p>
   );
 };

@@ -9,10 +9,12 @@ import {
 } from "../services/central-service";
 import { CentralTableType } from "../../types/central-types";
 import { getCentralsParams } from "../services/central-service/types";
+import { useSearchParams } from "next/navigation";
+import { useCentralStore } from "@stores/use-central-store";
 
 export const useGetCentrals = (params: getCentralsParams) => {
   const query = useQuery<CentralTableType[]>({
-    queryKey: ["fetchCentrals"],
+    queryKey: ["fetchCentrals", { ...params }],
     queryFn: () => getCentrals(params),
   });
 
@@ -38,19 +40,27 @@ export const useGetCentralsTotal = () => {
     queryFn: getCentralsTotal,
   });
 
-  return {...query}
+  return { ...query };
 };
 
 export const useCentral = () => {
   const queryClient = useQueryClient();
+  const { incTotalCentral, descTotalCentral } = useCentralStore();
+
+  const searchParams = useSearchParams();
+  const queryParams = {
+    page: parseInt(searchParams.get("page") || "0", 10),
+    limit: parseInt(searchParams.get("items_per_page") || "10", 10),
+  };
 
   const newCentral = useMutation({
     mutationKey: ["newCentral"],
     mutationFn: postCentral,
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ["fetchCentrals"],
+        queryKey: ["fetchCentrals", { ...queryParams }],
       });
+      incTotalCentral();
     },
   });
 
@@ -59,7 +69,7 @@ export const useCentral = () => {
     mutationFn: putCentral,
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ["fetchCentrals"],
+        queryKey: ["fetchCentrals", { ...queryParams }],
       });
     },
   });
@@ -69,8 +79,9 @@ export const useCentral = () => {
     mutationFn: deleteCentralById,
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ["fetchCentrals"],
+        queryKey: ["fetchCentrals", { ...queryParams }],
       });
+      descTotalCentral();
     },
   });
 
