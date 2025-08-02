@@ -20,10 +20,10 @@ import { SelectOption } from "@components/core/select/types";
 import { Title } from "@components/core/title";
 
 export function DataTable<T>(props: DataTableProps<T>) {
-  const { data, columns, total, title, description } = props;
+  const { data, columns, total, title, description, manualPagination } = props;
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const currentPage = parseInt(searchParams.get("page") || "0", 10);
   const currentItemsPerPage = parseInt(
     searchParams.get("items_per_page") || "10",
     10
@@ -53,13 +53,13 @@ export function DataTable<T>(props: DataTableProps<T>) {
     if (sorting.length > 0) {
       params.set("sortBy", sorting[0].id);
       params.set("order", sorting[0].desc ? "desc" : "asc");
-      router.push(`?${params.toString()}`);
+      router.replace(`?${params.toString()}`);
       return;
     }
 
     params.delete("sortBy");
     params.delete("order");
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   }, [sorting]);
 
   const table = useReactTable<T>({
@@ -70,7 +70,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
       pagination,
       sorting,
     },
-    manualPagination: true,
+    manualPagination: manualPagination,
     manualSorting: true,
     enableSortingRemoval: true,
     onSortingChange: setSorting,
@@ -83,13 +83,13 @@ export function DataTable<T>(props: DataTableProps<T>) {
   const setSearchParams = (param: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(param, value);
-    router.push(`?${params}`);
+    router.replace(`?${params}`);
   };
 
   const nextPage = () => {
     const page = pagination.pageIndex + 1;
     table.nextPage();
-    setSearchParams("page", page.toString());
+    manualPagination && setSearchParams("page", page.toString());
     setPagination((prev) => ({
       ...prev,
       pageIndex: page,
@@ -99,7 +99,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
   const previousPage = () => {
     const page = Math.max(pagination.pageIndex - 1, 0);
     table.previousPage();
-    setSearchParams("page", page.toString());
+    manualPagination && setSearchParams("page", page.toString());
     setPagination((prev) => ({
       ...prev,
       pageIndex: page,

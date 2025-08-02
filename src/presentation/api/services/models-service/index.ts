@@ -19,8 +19,5 @@ export async function getModels(
       name: item.name,
     };
   });
-
-  console.log(models);
-
   return models;
 }

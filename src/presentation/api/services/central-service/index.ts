@@ -4,19 +4,25 @@ import { getCentralsParams } from "./types";
 import { getModels } from "../models-service";
 import { ModelType } from "../../../types/model-types";
 import { sortItemsByModelName } from "./utils/sort-items-by-model-name";
+import { searchCentralByName } from "./utils/search-central-by-name";
 
 export async function getCentrals(params: getCentralsParams) {
   const query = new URLSearchParams();
 
-  if (params.name) query.append("name_like", params.name);
-  // if (params.model) query.append("model_like", params.model);
+  query.append("name_like", `${params.search}`);
 
   if (params.page + 1) query.append("_page", (params.page + 1).toString());
   if (params.limit) query.append("_per_page", params.limit.toString());
   if (params.sortBy) query.append("_sort", params.sortBy);
   if (params.order) query.append("_order", params.order);
+
   let centralResponse: CentralType[] = [];
   let models: ModelType[] = [];
+
+  if (params.searchType === "name" && params.search) {
+    models = await getModels();
+    centralResponse = await searchCentralByName(params.search);
+  }
 
   if (params.sortBy === "modelName") {
     const sortedCentrals = await sortItemsByModelName({ order: params.order });
@@ -29,7 +35,7 @@ export async function getCentrals(params: getCentralsParams) {
     centralResponse = paginatedCentrals;
   }
 
-  if (params.sortBy !== "modelName") {
+  if (params.sortBy !== "modelName" && params.searchType !== "name") {
     models = await getModels();
     const { data: response } = await API.get(`/centrals?${query.toString()}`);
     centralResponse = response.data;
@@ -37,7 +43,7 @@ export async function getCentrals(params: getCentralsParams) {
 
   const centrals: CentralTableType[] = centralResponse.map(
     (item: CentralType) => {
-      const model = models.find((m) => m.id === item.modelId);
+      const model = models.find((model) => model.id === item.modelId);
       return {
         id: item.id,
         name: item.name,

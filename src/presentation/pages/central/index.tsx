@@ -4,31 +4,33 @@ import { Container } from "@components/core/container";
 import { Title } from "@components/core/title";
 import * as styles from "./styles/central-page.css";
 import * as constants from "./constants";
-import { Input } from "@components/core/input";
 import { Card } from "@components/core/card";
 import { Button } from "@components/core/button";
-import { Select } from "@components/core/select/Select";
 import { useCentralStore } from "@stores/use-central-store";
-import { CentralFormModal } from "@components/ui/central-form-modal";
 import { useCentral, useGetCentrals } from "../../api/hooks/useCentral";
-import { DataTable } from "@components/ui/data-table";
 import { CentralTableType } from "../../types/central-types";
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
 import { useDeleteModalStore } from "@stores/use-delete-modal-store";
-import { DeleteModal } from "@components/ui/delete-modal";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
+import { CentralFormModal } from "@ui/central-form-modal";
+import { DataTable } from "@ui/data-table";
+import { DeleteModal } from "@ui/delete-modal";
+import { SearchCentralForm } from "@ui/search-central-form";
 
 export function CentralPage() {
-  const { totalCentral, toggleCentralModal } = useCentralStore();
+  const { toggleCentralModal, totalCentral } = useCentralStore();
   const searchParams = useSearchParams();
   const queryParams = {
     page: parseInt(searchParams.get("page") || "0", 10),
     limit: parseInt(searchParams.get("items_per_page") || "10", 10),
+    search: searchParams.get("search") ?? undefined,
+    searchType:
+      (searchParams.get("searchType") as "name" | "model") ?? undefined,
     sortBy: searchParams.get("sortBy") ?? undefined,
-  order: searchParams.get("order") as "asc" | "desc" ?? undefined,
+    order: (searchParams.get("order") as "asc" | "desc") ?? undefined,
   };
   const { data, isError, refetch, isLoading } = useGetCentrals(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
@@ -88,24 +90,18 @@ export function CentralPage() {
           </Button>
         </div>
 
-        <Card.Root>
-          <Card.Content className={styles.searchContainerStyle}>
-            <Input placeholder="Buscar..." fullWidth />
-            <Button variants="default">Buscar</Button>
-            <Select
-              options={constants.options}
-              onChange={(value) => console.log(value)}
-            />
-          </Card.Content>
-        </Card.Root>
+        <SearchCentralForm />
 
         <Card.Root className={styles.tableContainerStyle}>
           <DataTable<CentralTableType>
             title="Lista de Centrais"
-            description={`${totalCentral} centrais encontradas`}
+            description={`${
+              queryParams.search ? data.length : totalCentral
+            } centrais encontradas`}
             data={data}
             columns={tableColumns}
-            total={totalCentral}
+            total={queryParams.search ? data.length : totalCentral}
+            manualPagination={queryParams.search ? false : true}
           />
         </Card.Root>
       </Container>

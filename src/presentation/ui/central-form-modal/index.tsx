@@ -11,10 +11,10 @@ import { SelectOption } from "@components/core/select/types";
 import { InputMask } from "@react-input/mask";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { centralFormSchema, centralFormType } from "./schema";
-import { useCentral, useGetCentralById } from "../../../api/hooks/useCentral";
 import { useEffect } from "react";
-import { useGetModels } from "../../../api/hooks/useModel";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetCentralById, useCentral } from "../../api/hooks/useCentral";
+import { useGetModels } from "../../api/hooks/useModel";
 
 export const CentralFormModal = () => {
   const { toggleCentralModal, centralModal } = useCentralStore();
