@@ -107,6 +107,12 @@
       "name": "Central 20",
       "mac": "10:E0:09:00:50:10",
       "modelId": "4"
+    },
+    {
+      "id": "09e979e3-4034-43ee-a564-f5fc84e242d0",
+      "name": "A central",
+      "mac": "34:23:F2:F2:F2:32",
+      "modelId": "6"
     }
   ],
   "models": [

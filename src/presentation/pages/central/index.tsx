@@ -27,6 +27,8 @@ export function CentralPage() {
   const queryParams = {
     page: parseInt(searchParams.get("page") || "0", 10),
     limit: parseInt(searchParams.get("items_per_page") || "10", 10),
+    sortBy: searchParams.get("sortBy") ?? undefined,
+  order: searchParams.get("order") as "asc" | "desc" ?? undefined,
   };
   const { data, isError, refetch, isLoading } = useGetCentrals(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();

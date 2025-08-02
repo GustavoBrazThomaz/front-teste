@@ -1,31 +1,50 @@
 import { API } from "@config/API";
 import { CentralTableType, CentralType } from "../../../types/central-types";
 import { getCentralsParams } from "./types";
+import { getModels } from "../models-service";
+import { ModelType } from "../../../types/model-types";
+import { sortItemsByModelName } from "./utils/sort-items-by-model-name";
 
 export async function getCentrals(params: getCentralsParams) {
   const query = new URLSearchParams();
 
   if (params.name) query.append("name_like", params.name);
   // if (params.model) query.append("model_like", params.model);
-  console.log(params.page);
 
   if (params.page + 1) query.append("_page", (params.page + 1).toString());
   if (params.limit) query.append("_per_page", params.limit.toString());
   if (params.sortBy) query.append("_sort", params.sortBy);
   if (params.order) query.append("_order", params.order);
+  let centralResponse: CentralType[] = [];
+  let models: ModelType[] = [];
 
-  const { data: response } = await API.get(`/centrals?${query.toString()}`);
+  if (params.sortBy === "modelName") {
+    const sortedCentrals = await sortItemsByModelName({ order: params.order });
+    models = sortedCentrals.models;
+    const page = Number(params.page + 1);
+    const limit = Number(params.limit ?? 10);
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const paginatedCentrals = sortedCentrals.centrals.slice(start, end);
+    centralResponse = paginatedCentrals;
+  }
 
-  const centrals: CentralTableType[] = await Promise.all(
-    response.data.map(async (item: CentralType) => {
-      const { data: model } = await API.get(`/models/${item.modelId}`);
+  if (params.sortBy !== "modelName") {
+    models = await getModels();
+    const { data: response } = await API.get(`/centrals?${query.toString()}`);
+    centralResponse = response.data;
+  }
+
+  const centrals: CentralTableType[] = centralResponse.map(
+    (item: CentralType) => {
+      const model = models.find((m) => m.id === item.modelId);
       return {
         id: item.id,
         name: item.name,
-        modelName: model.name,
+        modelName: model?.name || "Modelo desconhecido",
         mac: item.mac,
       };
-    })
+    }
   );
 
   return centrals;

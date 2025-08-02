@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getModelById, getModels } from "../services/model-service";
+import { getModels } from "../services/models-service";
 import { SelectOption } from "@components/core/select/types";
 
 export const useGetModels = () => {
@@ -16,15 +16,6 @@ export const useGetModels = () => {
     });
     return modelSelectOptions;
   };
-  
+
   return { ...models, modelsSelectOptions };
-};
-
-export const useGetModelById = (id: string) => {
-  const model = useQuery({
-    queryKey: ["fetchModel", id],
-    queryFn: () => getModelById(id),
-  });
-
-  return { ...model };
 };
