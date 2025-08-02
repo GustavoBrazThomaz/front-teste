@@ -9,8 +9,6 @@ export async function sortItemsByModelName({
   order: "asc" | "desc" | undefined;
 }): Promise<{ centrals: CentralType[]; models: ModelType[] }> {
   const allCentrals = await API.get("/centrals");
-  console.log(order);
-
   const models = await getModels({
     order: order,
     sortBy: "name",

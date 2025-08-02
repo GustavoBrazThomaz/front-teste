@@ -6,5 +6,6 @@ export type DataTableProps<T> = {
   total: number;
   title?: string
   description?: string
+  manualPagination?: boolean
 };
 export type PaginationProps = { pageIndex: number; pageSize: number };

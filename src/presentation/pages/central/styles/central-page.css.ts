@@ -14,12 +14,6 @@ export const headerStyle = style({
   alignItems: "center",
 });
 
-export const searchContainerStyle = style({
-  display: "flex",
-  gap: "1.5rem",
-  flexDirection: "row",
-});
-
 export const tableContainerStyle = style({
   marginTop: "2rem",
   padding: "4rem !important",

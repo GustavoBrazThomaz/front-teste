@@ -23,18 +23,3 @@ export const columns: ColumnDef<CentralTableType>[] = [
   },
 ];
 
-export const options: SelectOption[] = [
-  {
-    label: "Ascendente",
-    value: "asc",
-  },
-  {
-    label: "Decrescente",
-    value: "desc",
-    disabled: true,
-  },
-  {
-    label: "A-Z",
-    value: "a-z",
-  },
-];

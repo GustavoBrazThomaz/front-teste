@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { checkMacExists } from "../../../api/services/central-service";
+import { checkMacExists } from "../../api/services/central-service";
 
 export const centralFormSchema = z
   .object({

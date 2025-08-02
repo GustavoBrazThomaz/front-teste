@@ -113,6 +113,12 @@
       "name": "A central",
       "mac": "34:23:F2:F2:F2:32",
       "modelId": "6"
+    },
+    {
+      "id": "0af93668-ea29-486b-8365-6b3e3ccfbee6",
+      "name": "Teste",
+      "mac": "34:T3:F3:F4:3F:3F",
+      "modelId": "2"
     }
   ],
   "models": [
