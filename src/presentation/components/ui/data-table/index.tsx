@@ -34,7 +34,33 @@ export function DataTable<T>(props: DataTableProps<T>) {
     pageSize: currentItemsPerPage,
   });
 
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const sortBy = searchParams.get("sortBy");
+  const order = searchParams.get("order");
+  const sortingState = sortBy
+    ? [
+        {
+          id: sortBy,
+          desc: order === "desc",
+        },
+      ]
+    : [];
+
+  const [sorting, setSorting] = useState<SortingState>(sortingState);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (sorting.length > 0) {
+      params.set("sortBy", sorting[0].id);
+      params.set("order", sorting[0].desc ? "desc" : "asc");
+      router.push(`?${params.toString()}`);
+      return;
+    }
+
+    params.delete("sortBy");
+    params.delete("order");
+    router.push(`?${params.toString()}`);
+  }, [sorting]);
 
   const table = useReactTable<T>({
     data: data,
@@ -54,13 +80,6 @@ export function DataTable<T>(props: DataTableProps<T>) {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  useEffect(() => {
-    setPagination((prev) => ({
-      ...prev,
-      pageIndex: currentPage,
-    }));
-  }, [currentPage]);
-
   const setSearchParams = (param: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(param, value);
@@ -68,15 +87,23 @@ export function DataTable<T>(props: DataTableProps<T>) {
   };
 
   const nextPage = () => {
-    const page = (pagination.pageIndex + 1).toString();
+    const page = pagination.pageIndex + 1;
     table.nextPage();
-    setSearchParams("page", page);
+    setSearchParams("page", page.toString());
+    setPagination((prev) => ({
+      ...prev,
+      pageIndex: page,
+    }));
   };
 
   const previousPage = () => {
-    const page = Math.max(pagination.pageIndex - 1, 0).toString();
+    const page = Math.max(pagination.pageIndex - 1, 0);
     table.previousPage();
-    setSearchParams("page", page);
+    setSearchParams("page", page.toString());
+    setPagination((prev) => ({
+      ...prev,
+      pageIndex: page,
+    }));
   };
 
   const itemsPerPage = (items: SelectOption) => {
