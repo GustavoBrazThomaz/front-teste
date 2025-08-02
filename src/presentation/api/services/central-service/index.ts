@@ -7,15 +7,17 @@ export async function getCentrals(params: getCentralsParams) {
 
   if (params.name) query.append("name_like", params.name);
   // if (params.model) query.append("model_like", params.model);
-  if (params.page) query.append("_page", params.page.toString());
-  if (params.limit) query.append("_limit", params.limit.toString());
+  console.log(params.page);
+
+  if (params.page + 1) query.append("_page", (params.page + 1).toString());
+  if (params.limit) query.append("_per_page", params.limit.toString());
   if (params.sortBy) query.append("_sort", params.sortBy);
   if (params.order) query.append("_order", params.order);
 
-  const { data } = await API.get(`/centrals?${query.toString()}`);
+  const { data: response } = await API.get(`/centrals?${query.toString()}`);
 
   const centrals: CentralTableType[] = await Promise.all(
-    data.map(async (item: CentralType) => {
+    response.data.map(async (item: CentralType) => {
       const { data: model } = await API.get(`/models/${item.modelId}`);
       return {
         id: item.id,
