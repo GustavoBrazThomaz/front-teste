@@ -19,6 +19,7 @@ export const columns: ColumnDef<CentralTableType>[] = [
     accessorKey: "mac",
     header: "MAC",
     cell: ({ row }) => row.getValue("mac"),
+    enableSorting: false,
   },
 ];
 
@@ -37,4 +38,3 @@ export const options: SelectOption[] = [
     value: "a-z",
   },
 ];
-
