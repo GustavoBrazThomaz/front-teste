@@ -3,15 +3,17 @@ import {
   deleteCentralById,
   getCentralById,
   getCentrals,
+  getCentralsTotal,
   postCentral,
   putCentral,
 } from "../services/central-service";
 import { CentralTableType } from "../../types/central-types";
+import { getCentralsParams } from "../services/central-service/types";
 
-export const useGetCentrals = () => {
+export const useGetCentrals = (params: getCentralsParams) => {
   const query = useQuery<CentralTableType[]>({
     queryKey: ["fetchCentrals"],
-    queryFn: getCentrals,
+    queryFn: () => getCentrals(params),
   });
 
   return { ...query };
@@ -28,6 +30,15 @@ export const useGetCentralById = (id: string, enabled: boolean = false) => {
   });
 
   return { ...query };
+};
+
+export const useGetCentralsTotal = () => {
+  const query = useQuery({
+    queryKey: ["fetchCentralsTotal"],
+    queryFn: getCentralsTotal,
+  });
+
+  return {...query}
 };
 
 export const useCentral = () => {
