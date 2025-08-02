@@ -45,19 +45,14 @@ export function DataTable<T>(props: DataTableProps<T>) {
       sorting,
     },
     manualPagination: true,
-    // manualSorting: true,
+    manualSorting: true,
     enableSortingRemoval: true,
-    onSortingChange: teste,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
-
-  function teste(e) {
-    setSorting(e)
-    console.log(sorting)
-  }
 
   useEffect(() => {
     setPagination((prev) => ({
@@ -117,7 +112,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
                   onClick={header.column.getToggleSortingHandler()}
                   key={header.id}
                   hasSort={header.column.getCanSort()}
-                  sortDirection={header.column.getNextSortingOrder()}
+                  sortDirection={header.column.getIsSorted()}
                 >
                   {flexRender(
                     header.column.columnDef.header,

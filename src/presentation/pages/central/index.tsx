@@ -37,6 +37,7 @@ export function CentralPage() {
     {
       accessorKey: "id",
       header: "Ações",
+      enableSorting: false,
       cell: ({ row }) => (
         <div className={styles.actionCellStyle}>
           <Button
