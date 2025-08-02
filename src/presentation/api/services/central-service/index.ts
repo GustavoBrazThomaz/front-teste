@@ -1,8 +1,19 @@
 import { API } from "@config/API";
-import { CentralTableType, CentralType } from "../../types/central-types";
+import { CentralTableType, CentralType } from "../../../types/central-types";
+import { getCentralsParams } from "./types";
 
-export async function getCentrals() {
-  const { data } = await API.get("/centrals");
+export async function getCentrals(params: getCentralsParams) {
+  const query = new URLSearchParams();
+
+  if (params.name) query.append("name_like", params.name);
+  // if (params.model) query.append("model_like", params.model);
+  if (params.page) query.append("_page", params.page.toString());
+  if (params.limit) query.append("_limit", params.limit.toString());
+  if (params.sortBy) query.append("_sort", params.sortBy);
+  if (params.order) query.append("_order", params.order);
+
+  const { data } = await API.get(`/centrals?${query.toString()}`);
+
   const centrals: CentralTableType[] = await Promise.all(
     data.map(async (item: CentralType) => {
       const { data: model } = await API.get(`/models/${item.modelId}`);
@@ -16,6 +27,11 @@ export async function getCentrals() {
   );
 
   return centrals;
+}
+
+export async function getCentralsTotal() {
+  const { data } = await API.get("/centrals");
+  return data.length;
 }
 
 export async function getCentralById(id: string): Promise<CentralType> {

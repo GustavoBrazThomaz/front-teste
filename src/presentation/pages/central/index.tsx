@@ -21,7 +21,10 @@ import { DeleteModal } from "@components/ui/delete-modal";
 
 export function CentralPage() {
   const { totalCentral, toggleCentralModal } = useCentralStore();
-  const { data, isLoading, isError } = useGetCentrals();
+  const { data, isLoading, isError } = useGetCentrals({
+    page: 1,
+    limit: 10,
+  });
   const { toggleDeleteModal } = useDeleteModalStore();
   const { deleteCentral } = useCentral();
 
