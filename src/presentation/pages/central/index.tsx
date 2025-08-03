@@ -7,8 +7,7 @@ import * as constants from "./constants";
 import { Card } from "@components/core/card";
 import { Button } from "@components/core/button";
 import { useCentralStore } from "@stores/use-central-store";
-import { useCentral, useGetCentrals } from "../../api/hooks/useCentral";
-import { CentralTableType } from "../../types/central-types";
+
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
@@ -19,6 +18,8 @@ import { CentralFormModal } from "@ui/central-form-modal";
 import { DataTable } from "@ui/data-table";
 import { DeleteModal } from "@ui/delete-modal";
 import { SearchCentralForm } from "@ui/search-central-form";
+import { useGetCentrals, useCentral } from "../../hooks/centrals/use-central-mutation";
+import { CentralTableType } from "./types";
 
 export function CentralPage() {
   const { toggleCentralModal, totalCentral } = useCentralStore();

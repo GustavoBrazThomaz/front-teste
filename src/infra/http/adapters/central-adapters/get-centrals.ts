@@ -1,10 +1,7 @@
-import { API } from "@config/API";
-import { CentralTableType, CentralType } from "../../../types/central-types";
+import { API } from "@infra/http/client";
 import { getCentralsParams } from "./types";
-import { getModels } from "../models-service";
-import { ModelType } from "../../../types/model-types";
-import { sortItemsByModelName } from "./utils/sort-items-by-model-name";
-import { searchCentralByName } from "./utils/search-central-by-name";
+import { CentralType } from "@domain/entities/central-entity";
+import { ModelType } from "@domain/entities/model-entity";
 
 // Normalmente eu faria dessa forma que está abaixo,
 // porém o json-server não está retornando como deveria, então fiz os filtros manualmente :)
@@ -81,39 +78,4 @@ export async function getCentrals(params: getCentralsParams) {
   });
 
   return centrals;
-}
-
-export async function getCentralsTotal() {
-  const { data } = await API.get("/centrals");
-  return data.length;
-}
-
-export async function getCentralById(id: string): Promise<CentralType> {
-  const { data } = await API.get(`/centrals/${id}`);
-  return {
-    id: data.id,
-    name: data.name,
-    modelId: data.modelId,
-    mac: data.mac,
-  };
-}
-
-export async function postCentral(central: Omit<CentralType, "id">) {
-  const newCentral = { ...central, id: crypto.randomUUID() };
-  await API.post("/centrals", newCentral);
-  return newCentral;
-}
-
-export async function putCentral(central: CentralType) {
-  await API.put(`/centrals/${central.id}`, central);
-  return central;
-}
-
-export async function deleteCentralById(id: string) {
-  await API.delete(`/centrals/${id}`);
-}
-
-export async function checkMacExists(mac: string): Promise<boolean> {
-  const { data } = await API.get("/centrals");
-  return data.some((central: CentralType) => central.mac === mac);
 }
