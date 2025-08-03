@@ -4,16 +4,15 @@ import { useSearchParams } from "next/navigation";
 import { deleteCentralById } from "@infra/http/adapters/central-adapters/delete-central";
 import { postCentral } from "@infra/http/adapters/central-adapters/post-central";
 import { putCentral } from "@infra/http/adapters/central-adapters/put-central";
+import { CentralEntity } from "@domain/entities/central-entity";
+import { toast } from "react-toastify";
+import { UndoDeleteToast } from "@ui/undo-delete-toast";
+import { useCentralsQueryParams } from "./use-central-query-params";
 
 export const useCentralMutation = () => {
   const queryClient = useQueryClient();
+  const queryParams = useCentralsQueryParams();
   const { incTotalCentral, descTotalCentral } = useCentralStore();
-
-  const searchParams = useSearchParams();
-  const queryParams = {
-    page: Number(searchParams.get("page") || "0"),
-    limit: Number(searchParams.get("items_per_page") || "10"),
-  };
 
   const newCentral = useMutation({
     mutationKey: ["central", "create"],
@@ -43,9 +42,45 @@ export const useCentralMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["centrals", { ...queryParams }],
       });
-      descTotalCentral();
     },
   });
 
-  return { newCentral, updateCentral, deleteCentral };
+  const handleDeleteCentral = (id: string) => {
+    let undo = false;
+    descTotalCentral();
+    const cachedCentralsData = queryClient.getQueryData([
+      "centrals",
+      { ...queryParams },
+    ]);
+
+    queryClient.setQueryData(
+      ["centrals", { ...queryParams }],
+      (cached: CentralEntity[]) =>
+        cached.filter((central: CentralEntity) => central.id !== id)
+    );
+
+    toast.error(
+      <UndoDeleteToast
+        onUndo={() => {
+          undo = true;
+          queryClient.setQueryData(
+            ["centrals", { ...queryParams }],
+            cachedCentralsData
+          );
+          incTotalCentral();
+        }}
+      />,
+      {
+        position: "bottom-right",
+        autoClose: 2000,
+        closeButton: false,
+        closeOnClick: false,
+        onClose: () => {
+          if (!undo) deleteCentral.mutate(id);
+        },
+      }
+    );
+  };
+
+  return { newCentral, updateCentral, deleteCentral, handleDeleteCentral };
 };
