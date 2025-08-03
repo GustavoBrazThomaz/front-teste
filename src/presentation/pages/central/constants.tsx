@@ -1,6 +1,6 @@
 import { SelectOption } from "@components/core/select/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { CentralTableType } from "../../types/central-types";
+import { CentralTableType } from "../../../domain/entities/central-entity";
 
 export const columns: ColumnDef<CentralTableType>[] = [
   {
@@ -22,4 +22,3 @@ export const columns: ColumnDef<CentralTableType>[] = [
     enableSorting: false,
   },
 ];
-

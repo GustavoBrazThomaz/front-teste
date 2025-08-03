@@ -31,12 +31,12 @@
       "@helpers/*": ["./src/presentation/helpers/*"],
       "@pages/*": ["./src/presentation/pages/*"],
       "@stores/*": ["./src/presentation/stores/*"],
+      "@hooks/*": ["/src/presentation/hooks"],
       "@stories/*": ["./src/presentation/stories/*"],
       "@styles/*": ["./src/presentation/styles/*"],
       "@ui/*": ["./src/presentation/ui/*"],
       "@assets/*": ["./.docs/assets/*"],
-      "@icons/*": ["./.docs/assets/icons/*"],
-
+      "@icons/*": ["./.docs/assets/icons/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getModels } from "../services/models-service";
 import { SelectOption } from "@components/core/select/types";
+import { getModels } from "@infra/http/adapters/models-adapters/get-models";
 
-export const useGetModels = () => {
+export const useModelsQuery = () => {
   const models = useQuery({
-    queryKey: ["fetchModels"],
+    queryKey: ["models"],
     queryFn: getModels,
   });
 
