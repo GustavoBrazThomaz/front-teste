@@ -1,6 +1,5 @@
-import { SelectOption } from "@components/core/select/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { CentralTableType } from "../../../domain/entities/central-entity";
+import { CentralTableType } from "./types";
 
 export const columns: ColumnDef<CentralTableType>[] = [
   {

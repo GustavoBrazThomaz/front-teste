@@ -1,45 +1,37 @@
 "use client";
-import { Modal } from "@components/core/modal";
-import { useCentralStore } from "@stores/use-central-store";
-import * as styles from "./styles/central-form-modal.css";
-import { Input } from "@components/core/input";
-import { Select } from "@components/core/select/Select";
 import { Button } from "@components/core/button";
 import { FormItem } from "@components/core/form-item";
-import { useForm } from "react-hook-form";
+import { Input } from "@components/core/input";
+import { Modal } from "@components/core/modal";
+import { Select } from "@components/core/select/Select";
 import { SelectOption } from "@components/core/select/types";
 import { InputMask } from "@react-input/mask";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { centralFormSchema, centralFormType } from "./schema";
+import { useCentralStore } from "@stores/use-central-store";
 import { useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useGetCentralById, useCentral } from "../../api/hooks/useCentral";
-import { useGetModels } from "../../api/hooks/useModel";
+import { useCentralByIdQuery } from "../../hooks/centrals/use-central-by-id-query";
+import { useModelsQuery } from "../../hooks/models/use-models-query";
+import { useCentralFormState } from "../../hooks/ui/use-central-form-state";
+import * as styles from "./styles/central-form-modal.css";
 
 export const CentralFormModal = () => {
-  const { toggleCentralModal, centralModal } = useCentralStore();
-  const hasId = !!centralModal.id;
-  const title = hasId ? "Editar central" : "Criar nova central";
+  const { centralModal } = useCentralStore();
+  const { methods, submitForm, handleClose, hasId } = useCentralFormState(
+    centralModal.id
+  );
+  const { data, isLoading } = useCentralByIdQuery(
+    centralModal.id as string,
+    !!centralModal.id
+  );
+  const { modelsSelectOptions } = useModelsQuery();
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
     reset,
-  } = useForm<centralFormType>({
-    resolver: zodResolver(centralFormSchema),
-    mode: "onSubmit",
-  });
+  } = methods;
 
-  const { data, isLoading } = useGetCentralById(
-    centralModal.id as string,
-    hasId
-  );
-  const { modelsSelectOptions } = useGetModels();
-  const { newCentral, updateCentral } = useCentral();
-  const queryClient = useQueryClient();
-
-  const options = modelsSelectOptions();
+  const title = hasId ? "Editar central" : "Criar nova central";
 
   useEffect(() => {
     if (data && hasId) {
@@ -50,53 +42,7 @@ export const CentralFormModal = () => {
         originalMac: data.mac,
       });
     }
-  }, [data]);
-
-  const handleClose = () => {
-    toggleCentralModal();
-    reset({
-      name: "",
-      mac: "",
-      modelId: "",
-      originalMac: undefined,
-    });
-  };
-
-  const submitForm = async (form: centralFormType) => {
-    const { name, modelId, mac } = form;
-    const centralForm = {
-      name,
-      mac,
-      modelId: modelId,
-    };
-
-    if (hasId && centralModal.id) {
-      updateCentral.mutate(
-        {
-          id: centralModal.id,
-          ...centralForm,
-        },
-        {
-          onSuccess(_, variables) {
-            queryClient.setQueryData(
-              ["fetchCentralById", centralModal.id],
-              () => {
-                return variables;
-              }
-            );
-            handleClose();
-          },
-        }
-      );
-      return;
-    }
-
-    newCentral.mutate(centralForm, {
-      onSuccess() {
-        handleClose();
-      },
-    });
-  };
+  }, [data, hasId, reset]);
 
   if (hasId) {
     if (isLoading) return <p>Loading</p>;
@@ -131,7 +77,7 @@ export const CentralFormModal = () => {
 
             <FormItem label="Modelos" error={errors.modelId?.message}>
               <Select
-                options={options}
+                options={modelsSelectOptions}
                 defaultValue={data?.modelId ? String(data.modelId) : undefined}
                 onChange={(event) => {
                   const valueChoose = event as SelectOption;

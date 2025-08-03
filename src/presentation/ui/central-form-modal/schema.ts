@@ -1,5 +1,5 @@
+import { checkIfMacExists } from "@infra/http/adapters/central-adapters/check-if-mac-exists";
 import { z } from "zod";
-import { checkMacExists } from "../../api/services/central-service";
 
 export const centralFormSchema = z
   .object({
@@ -11,7 +11,7 @@ export const centralFormSchema = z
   .superRefine(async (data, context) => {
     const { mac, originalMac } = data;
     if (mac !== originalMac) {
-      const isMacAvailable = await checkMacExists(mac);
+      const isMacAvailable = await checkIfMacExists(mac);
       if (isMacAvailable) {
         context.addIssue({
           code: z.ZodIssueCode.custom,

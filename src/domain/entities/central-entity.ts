@@ -1,4 +1,4 @@
-export type CentralType = {
+export type CentralEntity = {
   id: string;
   name: string;
   modelId: string;

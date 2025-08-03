@@ -18,49 +18,18 @@ import * as styles from "./styles/data-table.css";
 import { Select } from "@components/core/select/Select";
 import { SelectOption } from "@components/core/select/types";
 import { Title } from "@components/core/title";
+import { useDataTableState } from "../../hooks/ui/use-data-table-state";
 
 export function DataTable<T>(props: DataTableProps<T>) {
-  const { data, columns, total, title, description, manualPagination } = props;
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page") || "0", 10);
-  const currentItemsPerPage = parseInt(
-    searchParams.get("items_per_page") || "10",
-    10
-  );
+  const { data, columns, total, title, description } = props;
 
-  const [pagination, setPagination] = useState<PaginationProps>({
-    pageIndex: currentPage,
-    pageSize: currentItemsPerPage,
-  });
-
-  const sortBy = searchParams.get("sortBy");
-  const order = searchParams.get("order");
-  const sortingState = sortBy
-    ? [
-        {
-          id: sortBy,
-          desc: order === "desc",
-        },
-      ]
-    : [];
-
-  const [sorting, setSorting] = useState<SortingState>(sortingState);
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (sorting.length > 0) {
-      params.set("sortBy", sorting[0].id);
-      params.set("order", sorting[0].desc ? "desc" : "asc");
-      router.replace(`?${params.toString()}`);
-      return;
-    }
-
-    params.delete("sortBy");
-    params.delete("order");
-    router.replace(`?${params.toString()}`);
-  }, [sorting]);
+  const {
+    sorting,
+    setSorting,
+    pagination,
+    onPageChange,
+    onItemsPerPageChange,
+  } = useDataTableState();
 
   const table = useReactTable<T>({
     data: data,
@@ -70,7 +39,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
       pagination,
       sorting,
     },
-    manualPagination: manualPagination,
+    manualPagination: true,
     manualSorting: true,
     enableSortingRemoval: true,
     onSortingChange: setSorting,
@@ -80,34 +49,18 @@ export function DataTable<T>(props: DataTableProps<T>) {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const setSearchParams = (param: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(param, value);
-    router.replace(`?${params}`);
-  };
-
   const nextPage = () => {
-    const page = pagination.pageIndex + 1;
+    onPageChange(pagination.pageIndex + 1);
     table.nextPage();
-    manualPagination && setSearchParams("page", page.toString());
-    setPagination((prev) => ({
-      ...prev,
-      pageIndex: page,
-    }));
   };
 
   const previousPage = () => {
-    const page = Math.max(pagination.pageIndex - 1, 0);
+    onPageChange(Math.max(pagination.pageIndex - 1, 0));
     table.previousPage();
-    manualPagination && setSearchParams("page", page.toString());
-    setPagination((prev) => ({
-      ...prev,
-      pageIndex: page,
-    }));
   };
 
-  const itemsPerPage = (items: SelectOption) => {
-    setSearchParams("items_per_page", items.value);
+  const itemsPerPage = (item: SelectOption) => {
+    onItemsPerPageChange(Number(item.value));
   };
 
   return (
@@ -123,7 +76,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
         <div className={styles.itemsPerPageContainerStyle}>
           <p>Itens por página:</p>
           <Select
-            defaultValue={currentItemsPerPage.toString() ?? "10"}
+            defaultValue={pagination.pageSize.toString() ?? "10"}
             options={constants.itemsPerPage}
             onChange={(option) => itemsPerPage(option as SelectOption)}
           />

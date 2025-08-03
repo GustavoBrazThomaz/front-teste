@@ -5,13 +5,13 @@ import { ServerIcon } from "@components/icons/server";
 import classNames from "classnames";
 import { totalCentralStyle } from "./styles/total-central.css";
 import { useCentralStore } from "@stores/use-central-store";
-import { useGetCentralsTotal } from "../../../api/hooks/useCentral";
+import { useCentralsTotalQuery } from "../../../hooks/centrals/use-centrals-total-query";
 
 export const TotalCentral: FC<TotalCentralProps> = (props) => {
   const { className, ...rest } = props;
   const classes = classNames(totalCentralStyle, className);
   const { totalCentral, setTotalCentral } = useCentralStore();
-  const { data } = useGetCentralsTotal();
+  const { data } = useCentralsTotalQuery();
 
   useEffect(() => {
     setTotalCentral(data);

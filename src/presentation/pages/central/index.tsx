@@ -7,7 +7,6 @@ import * as constants from "./constants";
 import { Card } from "@components/core/card";
 import { Button } from "@components/core/button";
 import { useCentralStore } from "@stores/use-central-store";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
@@ -18,24 +17,18 @@ import { CentralFormModal } from "@ui/central-form-modal";
 import { DataTable } from "@ui/data-table";
 import { DeleteModal } from "@ui/delete-modal";
 import { SearchCentralForm } from "@ui/search-central-form";
-import { useGetCentrals, useCentral } from "../../hooks/centrals/use-central-mutation";
 import { CentralTableType } from "./types";
+import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
+import { useCentralMutation } from "../../hooks/centrals/use-central-mutation";
+import { useCentralsQueryParams } from "../../hooks/centrals/use-central-query-params";
 
 export function CentralPage() {
   const { toggleCentralModal, totalCentral } = useCentralStore();
   const searchParams = useSearchParams();
-  const queryParams = {
-    page: parseInt(searchParams.get("page") || "0", 10),
-    limit: parseInt(searchParams.get("items_per_page") || "10", 10),
-    search: searchParams.get("search") ?? undefined,
-    searchType:
-      (searchParams.get("searchType") as "name" | "model") ?? undefined,
-    sortBy: searchParams.get("sortBy") ?? undefined,
-    order: (searchParams.get("order") as "asc" | "desc") ?? undefined,
-  };
-  const { data, isError, refetch, isLoading } = useGetCentrals(queryParams);
+  const queryParams = useCentralsQueryParams();
+  const { data, isError, refetch, isLoading } = useCentralsQuery(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
-  const { deleteCentral } = useCentral();
+  const { deleteCentral } = useCentralMutation();
 
   const tableColumns: ColumnDef<CentralTableType>[] = [
     ...constants.columns,
@@ -102,7 +95,6 @@ export function CentralPage() {
             data={data}
             columns={tableColumns}
             total={queryParams.search ? data.length : totalCentral}
-            manualPagination={queryParams.search ? false : true}
           />
         </Card.Root>
       </Container>

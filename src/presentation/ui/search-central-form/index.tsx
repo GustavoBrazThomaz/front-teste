@@ -34,7 +34,7 @@ export const SearchCentralForm = () => {
       params.set("search", form.search);
       params.set("searchType", form.searchType);
     }
-
+    
     router.replace(`?${params.toString()}`);
   };
 
