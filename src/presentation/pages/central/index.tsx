@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Container } from "@components/core/container";
 import { Title } from "@components/core/title";
@@ -28,7 +29,7 @@ export function CentralPage() {
   const queryParams = useCentralsQueryParams();
   const { data, isError, refetch, isLoading } = useCentralsQuery(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
-  const { deleteCentral } = useCentralMutation();
+  const { handleDeleteCentral } = useCentralMutation();
 
   const tableColumns: ColumnDef<CentralTableType>[] = [
     ...constants.columns,
@@ -60,10 +61,6 @@ export function CentralPage() {
   useEffect(() => {
     refetch();
   }, [searchParams]);
-
-  const handleDeleteCentral = (id: string) => {
-    deleteCentral.mutate(id);
-  };
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>error</p>;

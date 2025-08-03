@@ -1,3 +1,4 @@
+import "react-toastify/dist/ReactToastify.css";
 import { Header } from "@components/core/header";
 import { Sidebar } from "@components/core/sidebar";
 import { Title } from "@components/core/title";
@@ -6,6 +7,7 @@ import { ReactNode } from "react";
 import * as styles from "./styles.css";
 import { TotalCentral } from "@components/core/total-central";
 import { ReactQueryProvider } from "@config/react-query-provider";
+import { ToastContainer } from "react-toastify";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
@@ -28,6 +30,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           {children}
         </div>
       </main>
+      <ToastContainer theme="dark" autoClose={3000} />
     </ReactQueryProvider>
   );
 }
