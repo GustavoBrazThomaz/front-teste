@@ -16,7 +16,6 @@ export const DeleteModal = (props: DeleteModalTypes) => {
 
   const onDelete = () => {
     if (!deleteModal.id) return;
-
     handleDelete(deleteModal.id);
     handleClose();
   };

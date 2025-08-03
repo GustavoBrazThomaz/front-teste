@@ -1,9 +1,9 @@
+import { ModelEntity } from "@domain/entities/model-entity";
 import { API } from "@infra/http/client";
-import { ModelType } from "@domain/entities/model-entity";
 
-export async function getModels(): Promise<ModelType[]> {
+export async function getModels(): Promise<ModelEntity[]> {
   const { data } = await API.get("/models");
-  const models = data.map((item: ModelType) => {
+  const models = data.map((item: ModelEntity) => {
     return {
       id: item.id,
       name: item.name,

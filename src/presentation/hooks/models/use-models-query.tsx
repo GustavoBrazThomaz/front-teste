@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { SelectOption } from "@components/core/select/types";
 import { getModels } from "@infra/http/adapters/models-adapters/get-models";
+import { useMemo } from "react";
 
 export const useModelsQuery = () => {
   const models = useQuery({
@@ -8,14 +8,11 @@ export const useModelsQuery = () => {
     queryFn: getModels,
   });
 
-  const modelsSelectOptions = (): SelectOption[] => {
+  const modelsSelectOptions = useMemo(() => {
     const { data } = models;
     if (!data) return [];
-    const modelSelectOptions = data.map((item) => {
-      return { label: item.name, value: item.id };
-    });
-    return modelSelectOptions;
-  };
+    return data.map((item) => ({ label: item.name, value: item.id }));
+  }, [models.data]);
 
   return { ...models, modelsSelectOptions };
 };

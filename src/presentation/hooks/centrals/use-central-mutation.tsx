@@ -1,12 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import { useCentralStore } from "@stores/use-central-store";
-
-import { getCentralsParams } from "@infra/http/adapters/central-adapters/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import { deleteCentralById } from "@infra/http/adapters/central-adapters/delete-central";
-import { getCentralById } from "@infra/http/adapters/central-adapters/get-central-by-id";
-import { getCentrals } from "@infra/http/adapters/central-adapters/get-centrals";
-import { getCentralsTotal } from "@infra/http/adapters/central-adapters/get-centrals-total";
 import { postCentral } from "@infra/http/adapters/central-adapters/post-central";
 import { putCentral } from "@infra/http/adapters/central-adapters/put-central";
 
@@ -16,8 +11,8 @@ export const useCentralMutation = () => {
 
   const searchParams = useSearchParams();
   const queryParams = {
-    page: parseInt(searchParams.get("page") || "0", 10),
-    limit: parseInt(searchParams.get("items_per_page") || "10", 10),
+    page: Number(searchParams.get("page") || "0"),
+    limit: Number(searchParams.get("items_per_page") || "10"),
   };
 
   const newCentral = useMutation({

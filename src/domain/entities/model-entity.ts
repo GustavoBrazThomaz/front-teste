@@ -1,4 +1,4 @@
-export type ModelType = {
+export type ModelEntity = {
   id: string;
   name: string;
 };

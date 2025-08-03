@@ -1,7 +1,7 @@
 import { API } from "@infra/http/client";
 import { getCentralsParams } from "./types";
-import { CentralType } from "@domain/entities/central-entity";
-import { ModelType } from "@domain/entities/model-entity";
+import { CentralEntity } from "@domain/entities/central-entity";
+import { ModelEntity } from "@domain/entities/model-entity";
 
 // Normalmente eu faria dessa forma que está abaixo,
 // porém o json-server não está retornando como deveria, então fiz os filtros manualmente :)
@@ -14,8 +14,8 @@ export async function getCentrals(params: getCentralsParams) {
   const centralsResponse = await API.get("/centrals");
   const modelsResponse = await API.get("/models");
 
-  const allCentrals: CentralType[] = centralsResponse.data;
-  const allModels: ModelType[] = modelsResponse.data;
+  const allCentrals: CentralEntity[] = centralsResponse.data;
+  const allModels: ModelEntity[] = modelsResponse.data;
 
   let filteredCentrals = [...allCentrals];
   if (params.search && params.searchType) {
@@ -50,8 +50,8 @@ export async function getCentrals(params: getCentralsParams) {
       });
     } else {
       filteredCentrals.sort((a, b) => {
-        const propA = a[params.sortBy as keyof CentralType];
-        const propB = b[params.sortBy as keyof CentralType];
+        const propA = a[params.sortBy as keyof CentralEntity];
+        const propB = b[params.sortBy as keyof CentralEntity];
         if (typeof propA === "string" && typeof propB === "string") {
           const comparison = propA.localeCompare(propB);
           return params.order === "asc" ? comparison : -comparison;
