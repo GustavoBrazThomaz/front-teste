@@ -1,33 +1,35 @@
 "use client";
 
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Button } from "@components/core/button";
+import { Card } from "@components/core/card";
 import { Container } from "@components/core/container";
 import { Title } from "@components/core/title";
-import * as styles from "./styles/central-page.css";
-import * as constants from "./constants";
-import { Card } from "@components/core/card";
-import { Button } from "@components/core/button";
-import { useCentralStore } from "@stores/use-central-store";
-import { ColumnDef } from "@tanstack/react-table";
-import { TrashIcon } from "@components/icons/trash";
 import { EditIcon } from "@components/icons/edit-item";
+import { TrashIcon } from "@components/icons/trash";
+import { useCentralStore } from "@stores/use-central-store";
 import { useDeleteModalStore } from "@stores/use-delete-modal-store";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ColumnDef } from "@tanstack/react-table";
 import { CentralFormModal } from "@ui/central-form-modal";
 import { DataTable } from "@ui/data-table";
 import { DeleteModal } from "@ui/delete-modal";
 import { SearchCentralForm } from "@ui/search-central-form";
-import { CentralTableType } from "./types";
-import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 import { useCentralMutation } from "../../hooks/centrals/use-central-mutation";
 import { useCentralsQueryParams } from "../../hooks/centrals/use-central-query-params";
+import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
+import * as constants from "./constants";
+import * as styles from "./styles/central-page.css";
+import { CentralTableType } from "./types";
+import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download-central-csv-mutation";
 
 export function CentralPage() {
   const { toggleCentralModal, totalCentral } = useCentralStore();
   const searchParams = useSearchParams();
   const queryParams = useCentralsQueryParams();
   const { data, isError, refetch, isLoading } = useCentralsQuery(queryParams);
+  const { downloadCentralCsv } = useDownloadCentralCsvMutation(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
   const { handleDeleteCentral } = useCentralMutation();
 
@@ -76,9 +78,19 @@ export function CentralPage() {
               Gerencie suas centrais cadastradas
             </Title.Item>
           </Title.Root>
-          <Button onClick={() => toggleCentralModal()} variants="secondary">
-            Criar central
-          </Button>
+
+          <div className={styles.headerButtonStyle}>
+            <Button
+              onClick={() => downloadCentralCsv.mutate()}
+              variants="default"
+            >
+              Download CSV
+            </Button>
+
+            <Button onClick={() => toggleCentralModal()} variants="secondary">
+              Criar central
+            </Button>
+          </div>
         </div>
 
         <SearchCentralForm />

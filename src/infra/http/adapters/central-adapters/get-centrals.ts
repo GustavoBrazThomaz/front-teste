@@ -55,11 +55,15 @@ export async function getCentrals(params: getCentralsParams) {
     }
   }
 
-  const page = Number(params.page ?? 0);
-  const limit = Number(params.limit ?? 10);
-  const start = page * limit;
-  const end = start + limit;
-  const paginatedCentrals = filteredCentrals.slice(start, end);
+  let paginatedCentrals = filteredCentrals;
+
+  if (params.limit) {
+    const page = Number(params.page ?? 0);
+    const limit = params.limit ?? undefined;
+    const start = page * limit;
+    const end = start + limit;
+    paginatedCentrals = filteredCentrals.slice(start, end);
+  }
 
   const centrals = paginatedCentrals.map((item) => {
     const model = allModels.find((m) => m.id === item.modelId);
