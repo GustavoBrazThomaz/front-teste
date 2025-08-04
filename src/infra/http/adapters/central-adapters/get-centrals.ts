@@ -18,24 +18,18 @@ export async function getCentrals(params: getCentralsParams) {
   const allModels: ModelEntity[] = modelsResponse.data;
 
   let filteredCentrals = [...allCentrals];
-  if (params.search && params.searchType) {
+  if (params.search) {
     const searchTerm = params.search.toLowerCase();
 
-    if (params.searchType === "name") {
-      filteredCentrals = filteredCentrals.filter((central) =>
-        central.name.toLowerCase().includes(searchTerm)
-      );
-    }
+    filteredCentrals = filteredCentrals.filter((central) =>
+      central.name.toLowerCase().includes(searchTerm)
+    );
+  }
 
-    if (params.searchType === "model") {
-      const matchingModelIds = allModels
-        .filter((model) => model.name.toLowerCase().includes(searchTerm))
-        .map((model) => model.id);
-
-      filteredCentrals = filteredCentrals.filter((central) =>
-        matchingModelIds.includes(central.modelId)
-      );
-    }
+  if (params.models && params.models.length > 0) {
+    filteredCentrals = filteredCentrals.filter((central) =>
+      params.models?.includes(central.modelId)
+    );
   }
 
   if (params.sortBy) {
