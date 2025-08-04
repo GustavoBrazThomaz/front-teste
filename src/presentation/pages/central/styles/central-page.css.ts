@@ -14,6 +14,11 @@ export const headerStyle = style({
   alignItems: "center",
 });
 
+export const headerButtonStyle = style({
+  display: "flex",
+  gap: "2rem",
+});
+
 export const tableContainerStyle = style({
   marginTop: "2rem",
   padding: "4rem !important",

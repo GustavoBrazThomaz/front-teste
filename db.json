@@ -65,6 +65,18 @@
       "name": "Nova central",
       "mac": "43:F3:4F:34:Y5:HY",
       "modelId": "3"
+    },
+    {
+      "id": "690883e7-b944-4782-af46-57026c83f45e",
+      "name": "juninho",
+      "mac": "D3:DF:34:G5:4G:54",
+      "modelId": "3"
+    },
+    {
+      "id": "663ef7d2-7333-4c0c-9e86-c1ca829ad0f6",
+      "name": "Lukinhas",
+      "mac": "CZ:HC:BN:MZ:BJ:K",
+      "modelId": "2"
     }
   ],
   "models": [
