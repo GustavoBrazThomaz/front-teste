@@ -6,6 +6,9 @@ export const buttonStyle = style({
   borderRadius: "1rem",
   cursor: "pointer",
   selectors: {
+    "&:hover": {
+      backgroundColor: theme.colors.defaultHover,
+    },
     "&:focus": {
       borderColor: theme.colors.foregroundSelectionBackground,
     },
@@ -17,9 +20,6 @@ export const buttonDefaultStyle = style({
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.primaryForeground,
   selectors: {
-    "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
-    },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
       backgroundColor: theme.colors.disabledBackground,
@@ -33,9 +33,6 @@ export const buttonPrimaryStyle = style({
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.primaryForeground,
   selectors: {
-    "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
-    },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
       backgroundColor: theme.colors.disabledBackground,
@@ -49,9 +46,6 @@ export const buttonSecondaryStyle = style({
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.foregroundSelectionBackground,
   selectors: {
-    "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
-    },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
       backgroundColor: theme.colors.disabledBackground,
@@ -65,9 +59,6 @@ export const buttonDangerStyle = style({
   backgroundColor: theme.colors.secondarySurface,
   color: theme.colors.error,
   selectors: {
-    "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
-    },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
       backgroundColor: theme.colors.disabledBackground,

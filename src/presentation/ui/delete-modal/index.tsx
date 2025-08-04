@@ -31,10 +31,10 @@ export const DeleteModal = (props: DeleteModalTypes) => {
           className={styles.deleteModalContentStyle}
         >
           <Modal.Actions>
-            <Button type="button" onClick={handleClose} variants="primary">
+            <Button type="button" onClick={handleClose} variant="primary">
               Cancelar
             </Button>
-            <Button type="button" onClick={onDelete} variants="danger">
+            <Button type="button" onClick={onDelete} variant="danger">
               Deletar
             </Button>
           </Modal.Actions>

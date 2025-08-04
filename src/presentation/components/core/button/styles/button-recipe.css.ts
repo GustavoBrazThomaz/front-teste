@@ -10,11 +10,14 @@ import {
 export const buttonRecipe = recipe({
   base: buttonStyle,
   variants: {
-    variants: {
+    variant: {
       default: buttonDefaultStyle,
       danger: buttonDangerStyle,
       primary: buttonPrimaryStyle,
       secondary: buttonSecondaryStyle,
     },
+  },
+  defaultVariants: {
+    variant: "default"
   },
 });

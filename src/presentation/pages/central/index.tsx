@@ -45,7 +45,6 @@ export function CentralPage() {
         <div className={styles.actionCellStyle}>
           <Button
             type="button"
-            variants="default"
             onClick={() => toggleCentralModal(row.getValue("id"))}
           >
             <EditIcon customSize="1.8rem" />
@@ -53,7 +52,7 @@ export function CentralPage() {
           <Button
             onClick={() => toggleDeleteModal(row.getValue("id"))}
             type="button"
-            variants="danger"
+            variant="danger"
           >
             <TrashIcon customSize="1.8rem" />
           </Button>
@@ -85,7 +84,6 @@ export function CentralPage() {
             <Button
               className={styles.headerButtonStyle}
               onClick={() => downloadCentralCsv.mutate()}
-              variants="default"
             >
               Download CSV
             </Button>
@@ -93,7 +91,7 @@ export function CentralPage() {
             <Button
               className={styles.headerButtonStyle}
               onClick={() => toggleCentralModal()}
-              variants="secondary"
+              variant="secondary"
             >
               Criar central
             </Button>

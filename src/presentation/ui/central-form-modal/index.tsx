@@ -57,9 +57,10 @@ export const CentralFormModal = () => {
             <FormItem label="Nome da central" error={errors.name?.message}>
               <Input
                 {...register("name")}
-                placeholder="Exemplo"
+                placeholder="Nova central"
                 fullWidth
                 autoFocus={false}
+                autoComplete="off"
               />
             </FormItem>
 
@@ -88,10 +89,10 @@ export const CentralFormModal = () => {
             </FormItem>
 
             <Modal.Actions>
-              <Button type="button" onClick={handleClose} variants="danger">
+              <Button type="button" onClick={handleClose} variant="danger">
                 Cancelar
               </Button>
-              <Button type="submit" variants="primary">
+              <Button type="submit" variant="primary">
                 Salvar
               </Button>
             </Modal.Actions>
