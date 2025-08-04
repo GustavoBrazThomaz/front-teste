@@ -15,7 +15,7 @@ import { DataTable } from "@ui/data-table";
 import { DeleteModal } from "@ui/delete-modal";
 import { SearchCentralForm } from "@ui/search-central-form";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useCentralMutation } from "../../hooks/centrals/use-central-mutation";
 import { useCentralsQueryParams } from "../../hooks/centrals/use-central-query-params";
 import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
@@ -66,9 +66,8 @@ export function CentralPage() {
     refetch();
   }, [searchParams]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>error</p>;
-  if (!data) return <p>error</p>;
+  // if (isError) return <p>error</p>;
+  // if (!data) return <p>error</p>;
 
   return (
     <React.Fragment>
@@ -105,13 +104,14 @@ export function CentralPage() {
 
         <Card.Root className={styles.tableContainerStyle}>
           <DataTable<CentralTableType>
+            isLoading={isLoading}
             title="Lista de Centrais"
             description={`${
-              queryParams.search ? data.length : totalCentral
+              queryParams.search ? data?.length : totalCentral
             } centrais encontradas`}
             data={data}
             columns={tableColumns}
-            total={queryParams.search ? data.length : totalCentral}
+            total={queryParams.search ? data?.length : totalCentral}
           />
         </Card.Root>
       </Container>

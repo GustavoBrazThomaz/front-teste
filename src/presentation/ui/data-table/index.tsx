@@ -20,9 +20,10 @@ import { SelectOption } from "@components/core/select/types";
 import { Title } from "@components/core/title";
 import { useDataTableState } from "../../hooks/ui/use-data-table-state";
 import { ScrollArea } from "@components/core/scroll-area";
+import { DataTableLoading } from "./loading";
 
 export function DataTable<T>(props: DataTableProps<T>) {
-  const { data, columns, total, title, description } = props;
+  const { data, columns, total, title, description, isLoading } = props;
 
   const {
     sorting,
@@ -33,9 +34,9 @@ export function DataTable<T>(props: DataTableProps<T>) {
   } = useDataTableState();
 
   const table = useReactTable<T>({
-    data: data,
+    data: data ?? [],
     columns: columns,
-    pageCount: Math.ceil(total / pagination.pageSize),
+    pageCount: total ? Math.ceil(total / pagination.pageSize) : 0,
     state: {
       pagination,
       sorting,
@@ -64,6 +65,8 @@ export function DataTable<T>(props: DataTableProps<T>) {
     onItemsPerPageChange(Number(item.value));
   };
 
+  if (isLoading) return <DataTableLoading />;
+
   return (
     <React.Fragment>
       <div className={styles.tableTopContainerStyle}>
@@ -83,7 +86,7 @@ export function DataTable<T>(props: DataTableProps<T>) {
           />
         </div>
       </div>
-
+      
       <ScrollArea orientation="horizontal" size="medium">
         <Table.Root>
           <Table.Head>
