@@ -1,4 +1,5 @@
 import { theme } from "@components/styles/theme/theme.css";
+import { highlightEffect } from "@styles/animations.css";
 import { style } from "@vanilla-extract/css";
 
 export const selectRootStyle = style({
@@ -12,6 +13,7 @@ export const selectChevronStyle = style({
 });
 
 export const selectTriggerStyle = style({
+  ...highlightEffect,
   display: "flex",
   flexDirection: "row",
   gap: "0.8rem",
