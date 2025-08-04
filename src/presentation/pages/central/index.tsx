@@ -25,6 +25,7 @@ import { CentralTableType } from "./types";
 import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download-central-csv-mutation";
 import { ScrollArea } from "@components/core/scroll-area";
 import { style } from "@vanilla-extract/css";
+import { Skeleton } from "@components/core/skeleton";
 
 export function CentralPage() {
   const { toggleCentralModal, totalCentral } = useCentralStore();
@@ -97,6 +98,8 @@ export function CentralPage() {
             </Button>
           </div>
         </div>
+
+        <Skeleton />
 
         <SearchCentralForm />
 

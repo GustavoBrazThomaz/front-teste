@@ -33,6 +33,7 @@ export const theme = createGlobalTheme(":root", {
     disabledForeground: COLOR_PALETTE.neutral[300],
 
     defaultHover: COLOR_PALETTE.neutral[950],
+    skeletonBackground: COLOR_PALETTE.neutral[750],
 
     highlightSuccessEntrypoint: COLOR_PALETTE.alpha.green[500],
     highlightSuccessEndpoint: COLOR_PALETTE.alpha.neutral[50],
