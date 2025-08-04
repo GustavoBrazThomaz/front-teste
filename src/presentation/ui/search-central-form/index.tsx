@@ -1,17 +1,14 @@
 import { Button } from "@components/core/button";
 import { Card } from "@components/core/card";
 import { Input } from "@components/core/input";
-import { Select } from "@components/core/select/Select";
-import * as styles from "./styles/search-central-form.css";
-import * as constants from "./constants";
-import { useForm } from "react-hook-form";
-import { searchCentralSchema, searchCentralType } from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SelectOption } from "@components/core/select/types";
-import { useRouter, useSearchParams } from "next/navigation";
 import { MultiSelect } from "@components/core/multi-select";
-import { useModelsQuery } from "../../hooks/models/use-models-query";
 import { multiSelectOptions } from "@components/core/multi-select/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useModelsQuery } from "../../hooks/models/use-models-query";
+import { searchCentralSchema, searchCentralType } from "./schema";
+import * as styles from "./styles/search-central-form.css";
 
 export const SearchCentralForm = () => {
   const { register, handleSubmit } = useForm<searchCentralType>({
@@ -62,13 +59,13 @@ export const SearchCentralForm = () => {
             onChooseFilters={onMultiSelectModels}
             placeholder="Modelos"
             defaultValues={searchParams.getAll("models")}
+            
           />
           {searchParams.toString().length > 0 && (
             <Button
               onClick={() => router.push("/centrais")}
               type="button"
               variants="default"
-              style={{ width: "20rem" }}
             >
               Limpar filtros
             </Button>

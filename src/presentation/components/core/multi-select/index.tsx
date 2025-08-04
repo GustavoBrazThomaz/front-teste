@@ -9,13 +9,15 @@ import { CheckIcon } from "@components/icons/check";
 import * as styles from "./styles/multi-select.css";
 import { multiSelectOptions, multiSelectProps } from "./types";
 import { ChevronDownIcon } from "@components/icons/chevron-down";
+import classNames from "classnames";
 
 export const MultiSelect: FC<multiSelectProps> = (props) => {
-  const { onChooseFilters, options, placeholder, defaultValues } = props;
+  const { onChooseFilters, options, placeholder, defaultValues, className } =
+    props;
   const defaultItemsSelected = defaultValues
     ? options.filter((item) => defaultValues.includes(item.value))
     : [];
-
+  const classes = classNames(styles.multiSelectTriggerStyle, className);
   const [itemsSelected, setItemsSelected] = useState<multiSelectOptions[]>([]);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const MultiSelect: FC<multiSelectProps> = (props) => {
       if (checked) {
         return [...prevSelected, item];
       }
-      
+
       return prevSelected.filter((selected) => selected.value !== item.value);
     });
   };
@@ -44,7 +46,7 @@ export const MultiSelect: FC<multiSelectProps> = (props) => {
       }}
     >
       <DropdownMenuTrigger asChild>
-        <button className={styles.multiSelectTriggerStyle}>
+        <button className={classes}>
           {triggerText}
 
           <ChevronDownIcon

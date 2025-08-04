@@ -16,7 +16,8 @@ export const modalBodyStyle = style({
 });
 
 export const modalOverlayStyle = style({
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  backdropFilter:  "blur(3px)",
   height: "100vh",
   width: "100vw",
   position: "fixed",

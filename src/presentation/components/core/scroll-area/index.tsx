@@ -16,7 +16,7 @@ import { scrollAreaScrollbarThumbStyle } from './styles/scroll-area-scrollbar-th
 import { ScrollAreaRootProps } from './types';
 
 export const ScrollArea: FC<ScrollAreaRootProps> = (props) => {
-  const { children, className, size, ...rest } = props;
+  const { children, className, size, orientation, ...rest } = props;
   const classes = classNames(styles.scrollAreaRootStyle, className);
   const scrollbarClasses = scrollAreaScrollbarRecipe({ size });
 
@@ -26,7 +26,7 @@ export const ScrollArea: FC<ScrollAreaRootProps> = (props) => {
         {children}
       </PrimitiveViewport>
 
-      <PrimitiveScrollbar className={scrollbarClasses} orientation="vertical">
+      <PrimitiveScrollbar className={scrollbarClasses} orientation={orientation ?? "vertical"}>
         <PrimitiveThumb className={scrollAreaScrollbarThumbStyle} />
       </PrimitiveScrollbar>
 

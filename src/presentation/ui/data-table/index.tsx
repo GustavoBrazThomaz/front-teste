@@ -19,6 +19,7 @@ import { Select } from "@components/core/select/Select";
 import { SelectOption } from "@components/core/select/types";
 import { Title } from "@components/core/title";
 import { useDataTableState } from "../../hooks/ui/use-data-table-state";
+import { ScrollArea } from "@components/core/scroll-area";
 
 export function DataTable<T>(props: DataTableProps<T>) {
   const { data, columns, total, title, description } = props;
@@ -83,41 +84,43 @@ export function DataTable<T>(props: DataTableProps<T>) {
         </div>
       </div>
 
-      <Table.Root>
-        <Table.Head>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <Table.Row key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <Table.Cell
-                  onClick={header.column.getToggleSortingHandler()}
-                  key={header.id}
-                  hasSort={header.column.getCanSort()}
-                  sortDirection={header.column.getIsSorted()}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </Table.Cell>
-              ))}
-            </Table.Row>
-          ))}
-        </Table.Head>
-        <Table.Body>
-          {table.getRowModel().rows.map((row) => (
-            <Table.Row
-              key={row.id}
-              data-state={row.getIsSelected() && "selected"}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <Table.Cell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Table.Cell>
-              ))}
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+      <ScrollArea orientation="horizontal" size="medium">
+        <Table.Root>
+          <Table.Head>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <Table.Row key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <Table.Cell
+                    onClick={header.column.getToggleSortingHandler()}
+                    key={header.id}
+                    hasSort={header.column.getCanSort()}
+                    sortDirection={header.column.getIsSorted()}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Head>
+          <Table.Body>
+            {table.getRowModel().rows.map((row) => (
+              <Table.Row
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <Table.Cell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      </ScrollArea>
 
       <Pagination.Root>
         <Pagination.Previous
