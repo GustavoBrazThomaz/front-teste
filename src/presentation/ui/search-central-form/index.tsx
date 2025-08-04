@@ -17,6 +17,10 @@ export const SearchCentralForm = () => {
   const { modelsSelectOptions } = useModelsQuery();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const excludedKeys = ["page", "items_per_page"];
+  const hasOtherFilters = [...searchParams.keys()].some(
+    (key) => !excludedKeys.includes(key)
+  );
 
   const searchCentral = (form: searchCentralType) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -50,22 +54,25 @@ export const SearchCentralForm = () => {
     <Card.Root>
       <form onSubmit={handleSubmit(searchCentral)}>
         <Card.Content className={styles.searchContainerStyle}>
-          <Input {...register("search")} placeholder="Buscar..." fullWidth />
-          <Button type="submit" variants="default">
-            Buscar
-          </Button>
+          <Input
+            autoComplete="off"
+            {...register("search")}
+            placeholder="Buscar central pelo nome"
+            fullWidth
+          />
+          <Button type="submit">Buscar</Button>
           <MultiSelect
             options={modelsSelectOptions}
             onChooseFilters={onMultiSelectModels}
             placeholder="Modelos"
             defaultValues={searchParams.getAll("models")}
-            
+            className={styles.multiSelectStyle}
           />
-          {searchParams.toString().length > 0 && (
+          {hasOtherFilters && (
             <Button
-              onClick={() => router.push("/centrais")}
+              onClick={() => router.replace("/centrais")}
               type="button"
-              variants="default"
+              className={styles.clearFiltersButtonStyle}
             >
               Limpar filtros
             </Button>

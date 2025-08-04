@@ -15,10 +15,19 @@ export const searchContainerStyle = style({
 });
 
 export const multiSelectStyle = style({
-  width: "inherit",
+  width: "100%",
   "@media": {
     [`screen and ${BREAKPOINTS.sm}`]: {
-      width: "100%",
+      width: "23rem",
+    },
+  },
+});
+
+export const clearFiltersButtonStyle = style({
+  width: "100%",
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      width: "20rem",
     },
   },
 });

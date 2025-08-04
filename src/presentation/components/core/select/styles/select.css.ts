@@ -27,7 +27,7 @@ export const selectTriggerStyle = style({
 
   selectors: {
     "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
+      backgroundColor: theme.colors.defaultHover,
     },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
@@ -64,7 +64,7 @@ export const selectOptionsListStyle = style({
 });
 
 export const selectOptionStyle = style({
-  padding: "0.5rem",
+  padding: "1rem",
   backgroundColor: "transparent",
   color: "white",
   cursor: "pointer",
@@ -76,7 +76,7 @@ export const selectOptionStyle = style({
 
   selectors: {
     "&:hover": {
-      backgroundColor: theme.colors.primaryNormal,
+      backgroundColor: theme.colors.defaultHover,
     },
     "&:disabled": {
       color: theme.colors.disabledForeground,

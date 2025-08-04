@@ -20,7 +20,7 @@ export const multiSelectTriggerStyle = style({
 
   selectors: {
     "&:hover": {
-      backgroundColor: theme.colors.primarySurface,
+      backgroundColor: theme.colors.defaultHover,
     },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
@@ -35,7 +35,7 @@ export const multiSelectTriggerStyle = style({
 
 export const multiSelectOptionsListStyle = style({
   height: "100%",
-  padding: "1.3rem",
+  padding: "0.5rem",
   background: theme.colors.contrastedForeground,
   color: "white",
   display: "flex",
@@ -59,7 +59,7 @@ export const multiSelectIndicatorStyle = style({
 export const checkIconStyle = style({});
 
 export const multiSelectOptionStyle = style({
-  padding: "0.5rem",
+  padding: "1rem",
   color: "white",
   cursor: "pointer",
   borderRadius: "1rem",
@@ -70,7 +70,7 @@ export const multiSelectOptionStyle = style({
 
   selectors: {
     "&:hover": {
-      backgroundColor: theme.colors.primaryNormal,
+      backgroundColor: theme.colors.defaultHover,
     },
     "&:disabled": {
       color: theme.colors.disabledForeground,
