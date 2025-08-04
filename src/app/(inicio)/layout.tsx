@@ -5,7 +5,7 @@ import { Title } from "@components/core/title";
 import { MENU_RESOURCES_CONFIGS } from "@config/menu";
 import { ReactNode } from "react";
 import * as styles from "./styles.css";
-import { TotalCentral } from "@components/core/total-central";
+import { CentralsTotal } from "@ui/centrals-total";
 import { ReactQueryProvider } from "@config/react-query-provider";
 import { ToastContainer } from "react-toastify";
 
@@ -24,7 +24,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
               </Title.Root>
             </Header.LeftGroup>
             <Header.RightGroup className={styles.headerGroupStyles}>
-              <TotalCentral />
+              <CentralsTotal />
             </Header.RightGroup>
           </Header.Root>
           {children}
