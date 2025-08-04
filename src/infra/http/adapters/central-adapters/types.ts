@@ -4,7 +4,7 @@ export type getCentralsParams = {
   page: number;
   limit: number;
   search?: string;
-  searchType?: "name" | "model";
   sortBy?: string;
   order?: ORDER;
+  models?: string[];
 };
