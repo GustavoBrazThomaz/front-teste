@@ -7,7 +7,7 @@ export const containerPageStyle = style({
   backgroundColor: theme.colors.background,
   padding: "2rem",
   width: "100%",
-  overflowX: "auto",
+
 });
 
 export const headerStyle = style({

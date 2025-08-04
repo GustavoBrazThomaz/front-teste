@@ -1,3 +1,4 @@
+import { smallScrollbarStyle } from "./../../presentation/components/styles/utils/scrollbar.css";
 import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 import { style } from "@vanilla-extract/css";
 
@@ -12,6 +13,8 @@ export const containerPageStyles = style({
   width: "calc(100% - 42px)",
   display: "flex",
   flexDirection: "column",
+  overflowX: "auto",
+  ...smallScrollbarStyle,
   "@media": {
     [`screen and ${BREAKPOINTS.sm}`]: {
       width: "100%",
