@@ -11,11 +11,11 @@ import { Skeleton } from "@components/core/skeleton";
 export const CentralsTotal: FC<CentralsTotalProps> = (props) => {
   const { className, ...rest } = props;
   const classes = classNames(styles.centralsTotalContainer, className);
-  const { totalCentral, setTotalCentral } = useCentralStore();
+  const { centralsTotal, setCentralsTotal } = useCentralStore();
   const { data, isLoading } = useCentralsTotalQuery();
 
   useEffect(() => {
-    setTotalCentral(data);
+    setCentralsTotal(data);
   }, [data]);
 
   if (isLoading)
@@ -25,7 +25,7 @@ export const CentralsTotal: FC<CentralsTotalProps> = (props) => {
     <div className={classes} {...rest}>
       <ServerIcon customSize="2rem" />
       <span className={styles.centralsTotalText}> Total de centrais:</span>
-      <div className={styles.centralsTotalCard}>{totalCentral}</div>
+      <div className={styles.centralsTotalCard}>{centralsTotal}</div>
     </div>
   );
 };
