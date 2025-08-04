@@ -1,7 +1,9 @@
 import { theme } from "@components/styles/theme/theme.css";
+import { highlightEffect } from "@styles/animations.css";
 import { style } from "@vanilla-extract/css";
 
 export const inputStyle = style({
+  ...highlightEffect,
   backgroundColor: "transparent",
   color: theme.colors.primaryForeground,
   padding: "1.3rem",
@@ -9,6 +11,9 @@ export const inputStyle = style({
   border: `1px solid ${theme.colors.primaryNormal}`,
 
   selectors: {
+    "&:hover": {
+      backgroundColor: theme.colors.defaultHover,
+    },
     "&:disabled": {
       borderColor: theme.colors.disabledForeground,
       backgroundColor: theme.colors.disabledBackground,
