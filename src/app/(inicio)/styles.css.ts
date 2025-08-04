@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 import { style } from "@vanilla-extract/css";
 
 export const homeLayoutStyle = style({
@@ -8,9 +9,14 @@ export const homeLayoutStyle = style({
 });
 
 export const containerPageStyles = style({
-  width: "100%",
+  width: "calc(100% - 42px)",
   display: "flex",
   flexDirection: "column",
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      width: "100%",
+    },
+  },
 });
 
 export const headerGroupStyles = style({

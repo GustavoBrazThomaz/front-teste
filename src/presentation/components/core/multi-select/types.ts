@@ -8,4 +8,5 @@ export type multiSelectProps = {
   onChooseFilters: (itemsSelected: multiSelectOptions[]) => void;
   placeholder: string;
   defaultValues?: string[];
+  className?: string;
 };

@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 import { theme } from "@components/styles/theme/theme.css";
+import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 
 export const sidebarRootStyle = style({
   height: "100%",
@@ -8,8 +9,8 @@ export const sidebarRootStyle = style({
   flexDirection: "column",
   width: "10.8rem",
   transition: "width 0.2s ease-in-out",
+  borderRadius: "0 !important",
   zIndex: 1,
-  borderRadius: "0",
   ":hover": {
     width: "32rem",
   },
@@ -41,10 +42,15 @@ export const sideBarDefenseLogoStyle = style({
     [`${sidebarRootStyle}:hover &`]: {
       width: "18rem",
       height: "5rem",
-      display: "inline-flex",
+      display: "none",
       marginTop: "2.2rem",
       opacity: 1,
       transition: "opacity 0.5s ease-in-out",
+      "@media": {
+        [`screen and ${BREAKPOINTS.sm}`]: {
+          display: "inline-flex",
+        },
+      },
     },
   },
 });
@@ -57,7 +63,12 @@ export const sideBarDefenseLogoSmallStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "none",
+      display: "flex",
+      "@media": {
+        [`screen and ${BREAKPOINTS.sm}`]: {
+          display: "none",
+        },
+      },
     },
   },
 });
@@ -72,7 +83,12 @@ export const sideBarTitleHeaderStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "block",
+      display: "none",
+      "@media": {
+        [`screen and ${BREAKPOINTS.sm}`]: {
+          display: "block",
+        },
+      },
     },
   },
 });
@@ -89,9 +105,15 @@ export const sideBarIntelbrasLogoStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "flex",
+      display: "none",
       width: "10rem",
       height: "1.8rem",
+
+      "@media": {
+        [`screen and ${BREAKPOINTS.sm}`]: {
+          display: "flex",
+        },
+      },
     },
   },
 });

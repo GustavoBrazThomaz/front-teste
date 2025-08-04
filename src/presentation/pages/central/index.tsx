@@ -23,6 +23,8 @@ import * as constants from "./constants";
 import * as styles from "./styles/central-page.css";
 import { CentralTableType } from "./types";
 import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download-central-csv-mutation";
+import { ScrollArea } from "@components/core/scroll-area";
+import { style } from "@vanilla-extract/css";
 
 export function CentralPage() {
   const { toggleCentralModal, totalCentral } = useCentralStore();
@@ -79,15 +81,20 @@ export function CentralPage() {
             </Title.Item>
           </Title.Root>
 
-          <div className={styles.headerButtonStyle}>
+          <div className={styles.headerButtonContainerStyle}>
             <Button
+              className={styles.headerButtonStyle}
               onClick={() => downloadCentralCsv.mutate()}
               variants="default"
             >
               Download CSV
             </Button>
 
-            <Button onClick={() => toggleCentralModal()} variants="secondary">
+            <Button
+              className={styles.headerButtonStyle}
+              onClick={() => toggleCentralModal()}
+              variants="secondary"
+            >
               Criar central
             </Button>
           </div>

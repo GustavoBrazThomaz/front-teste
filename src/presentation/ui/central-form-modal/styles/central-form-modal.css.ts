@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 import { style } from "@vanilla-extract/css";
 
 export const centralFormModalStyle = style({
@@ -11,6 +12,12 @@ export const macInputStyle = style({
 });
 
 export const centralFormModalBodyStyle = style({
-  maxWidth: "50rem",
-  width: "100%"
+  maxWidth: "35rem",
+  width: "100%",
+
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      maxWidth: "50rem",
+    },
+  },
 });

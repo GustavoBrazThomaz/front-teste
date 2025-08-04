@@ -10,7 +10,6 @@ export const multiSelectTriggerStyle = style({
   flexDirection: "row",
   gap: "0.8rem",
   alignItems: "center",
-  width: "25rem",
   justifyContent: "space-between",
   border: `1px solid ${theme.colors.primaryNormal}`,
   backgroundColor: theme.colors.secondarySurface,
@@ -45,7 +44,7 @@ export const multiSelectOptionsListStyle = style({
   borderRadius: "0.5rem",
   zIndex: "2",
   border: `1px solid ${theme.colors.primaryNormal}`,
-  marginTop: "0.5rem"
+  marginTop: "0.5rem",
 });
 
 export const multiSelectIndicatorStyle = style({
