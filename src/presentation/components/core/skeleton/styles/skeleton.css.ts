@@ -13,4 +13,5 @@ export const skeletonStyles = style({
   animationDuration: "1.5s",
   animationTimingFunction: "ease-in-out",
   animationIterationCount: "infinite",
+  borderRadius: "1rem",
 });
