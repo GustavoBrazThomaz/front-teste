@@ -74,6 +74,6 @@ export async function getCentrals(params: getCentralsParams) {
       mac: item.mac,
     };
   });
-
+  await new Promise((resolve) => setTimeout(resolve, 200));
   return centrals;
 }
