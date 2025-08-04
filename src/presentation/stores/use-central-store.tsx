@@ -8,10 +8,10 @@ type CentralModalType = {
 type CentralStoreType = {
   centralModal: CentralModalType;
   toggleCentralModal: (id?: string) => void;
-  totalCentral: number;
-  setTotalCentral: (total: number) => void;
-  incTotalCentral: () => void;
-  descTotalCentral: () => void;
+  centralsTotal: number;
+  setCentralsTotal: (total: number) => void;
+  incCentralsTotal: () => void;
+  descCentralsTotal: () => void;
 };
 
 export const useCentralStore = create<CentralStoreType>()((set) => ({
@@ -25,13 +25,13 @@ export const useCentralStore = create<CentralStoreType>()((set) => ({
       },
     })),
 
-  totalCentral: 0,
+  centralsTotal: 0,
 
-  setTotalCentral: (total) => set({ totalCentral: total }),
+  setCentralsTotal: (total) => set({ centralsTotal: total }),
 
-  incTotalCentral: () =>
-    set((state) => ({ totalCentral: state.totalCentral + 1 })),
+  incCentralsTotal: () =>
+    set((state) => ({ centralsTotal: state.centralsTotal + 1 })),
 
-  descTotalCentral: () =>
-    set((state) => ({ totalCentral: state.totalCentral - 1 })),
+  descCentralsTotal: () =>
+    set((state) => ({ centralsTotal: state.centralsTotal - 1 })),
 }));

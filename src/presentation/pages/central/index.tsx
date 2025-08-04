@@ -3,6 +3,7 @@
 import { Button } from "@components/core/button";
 import { Card } from "@components/core/card";
 import { Container } from "@components/core/container";
+import { Skeleton } from "@components/core/skeleton";
 import { Title } from "@components/core/title";
 import { EditIcon } from "@components/icons/edit-item";
 import { TrashIcon } from "@components/icons/trash";
@@ -15,23 +16,20 @@ import { DataTable } from "@ui/data-table";
 import { DeleteModal } from "@ui/delete-modal";
 import { SearchCentralForm } from "@ui/search-central-form";
 import { useSearchParams } from "next/navigation";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useCentralMutation } from "../../hooks/centrals/use-central-mutation";
 import { useCentralsQueryParams } from "../../hooks/centrals/use-central-query-params";
 import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
+import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download-central-csv-mutation";
 import * as constants from "./constants";
 import * as styles from "./styles/central-page.css";
 import { CentralTableType } from "./types";
-import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download-central-csv-mutation";
-import { ScrollArea } from "@components/core/scroll-area";
-import { style } from "@vanilla-extract/css";
-import { Skeleton } from "@components/core/skeleton";
 
 export function CentralPage() {
-  const { toggleCentralModal, totalCentral } = useCentralStore();
+  const { toggleCentralModal, centralsTotal } = useCentralStore();
   const searchParams = useSearchParams();
   const queryParams = useCentralsQueryParams();
-  const { data, isError, refetch, isLoading } = useCentralsQuery(queryParams);
+  const { data, refetch, isLoading } = useCentralsQuery(queryParams);
   const { downloadCentralCsv } = useDownloadCentralCsvMutation(queryParams);
   const { toggleDeleteModal } = useDeleteModalStore();
   const { handleDeleteCentral } = useCentralMutation();
@@ -66,8 +64,13 @@ export function CentralPage() {
     refetch();
   }, [searchParams]);
 
-  // if (isError) return <p>error</p>;
-  // if (!data) return <p>error</p>;
+  const dataTableTotal = useMemo(() => {
+    const excludedKeys = ["page", "items_per_page"];
+    const hasOtherFilters = [...searchParams.keys()].some(
+      (key) => !excludedKeys.includes(key)
+    );
+    return hasOtherFilters && data ? data.length : centralsTotal;
+  }, [data]);
 
   return (
     <React.Fragment>
@@ -106,12 +109,10 @@ export function CentralPage() {
           <DataTable<CentralTableType>
             isLoading={isLoading}
             title="Lista de Centrais"
-            description={`${
-              queryParams.search ? data?.length : totalCentral
-            } centrais encontradas`}
+            description={`${dataTableTotal} centrais encontradas`}
             data={data}
             columns={tableColumns}
-            total={queryParams.search ? data?.length : totalCentral}
+            total={dataTableTotal}
           />
         </Card.Root>
       </Container>

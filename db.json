@@ -59,6 +59,66 @@
       "name": "Lukinhas",
       "mac": "CZ:HC:BN:MZ:BJ:K",
       "modelId": "2"
+    },
+    {
+      "id": "a1b2c3d4-1010-4f00-aaaa-101010101010",
+      "name": "Central 15",
+      "mac": "10:E0:09:00:50:0B",
+      "modelId": "1"
+    },
+    {
+      "id": "a1b2c3d4-1111-4f00-bbbb-111111111111",
+      "name": "Central 16",
+      "mac": "10:E0:09:00:50:0C",
+      "modelId": "2"
+    },
+    {
+      "id": "a1b2c3d4-1212-4f00-cccc-121212121212",
+      "name": "Central 17",
+      "mac": "10:E0:09:00:50:0D",
+      "modelId": "3"
+    },
+    {
+      "id": "a1b2c3d4-1313-4f00-dddd-131313131313",
+      "name": "Central 18",
+      "mac": "10:E0:09:00:50:0E",
+      "modelId": "4"
+    },
+    {
+      "id": "a1b2c3d4-1414-4f00-eeee-141414141414",
+      "name": "Central 19",
+      "mac": "10:E0:09:00:50:0F",
+      "modelId": "5"
+    },
+    {
+      "id": "a1b2c3d4-1515-4f00-ffff-151515151515",
+      "name": "Central 20",
+      "mac": "10:E0:09:00:50:10",
+      "modelId": "6"
+    },
+    {
+      "id": "a1b2c3d4-1616-4f00-abcd-161616161616",
+      "name": "Central 21",
+      "mac": "10:E0:09:00:50:11",
+      "modelId": "1"
+    },
+    {
+      "id": "a1b2c3d4-1717-4f00-bcde-171717171717",
+      "name": "Central 22",
+      "mac": "10:E0:09:00:50:12",
+      "modelId": "2"
+    },
+    {
+      "id": "a1b2c3d4-1818-4f00-cdef-181818181818",
+      "name": "Central 23",
+      "mac": "10:E0:09:00:50:13",
+      "modelId": "3"
+    },
+    {
+      "id": "a1b2c3d4-1919-4f00-def0-191919191919",
+      "name": "Central 24",
+      "mac": "10:E0:09:00:50:14",
+      "modelId": "4"
     }
   ],
   "models": [

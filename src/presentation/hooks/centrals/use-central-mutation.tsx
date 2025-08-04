@@ -12,7 +12,7 @@ import { useCentralsQueryParams } from "./use-central-query-params";
 export const useCentralMutation = () => {
   const queryClient = useQueryClient();
   const queryParams = useCentralsQueryParams();
-  const { incTotalCentral, descTotalCentral } = useCentralStore();
+  const { incCentralsTotal, descCentralsTotal } = useCentralStore();
 
   const newCentral = useMutation({
     mutationKey: ["central", "create"],
@@ -21,7 +21,7 @@ export const useCentralMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["centrals", { ...queryParams }],
       });
-      incTotalCentral();
+      incCentralsTotal();
     },
   });
 
@@ -47,7 +47,7 @@ export const useCentralMutation = () => {
 
   const handleDeleteCentral = (id: string) => {
     let undo = false;
-    descTotalCentral();
+    descCentralsTotal();
     const cachedCentralsData = queryClient.getQueryData([
       "centrals",
       { ...queryParams },
@@ -67,7 +67,7 @@ export const useCentralMutation = () => {
             ["centrals", { ...queryParams }],
             cachedCentralsData
           );
-          incTotalCentral();
+          incCentralsTotal();
         }}
       />,
       {
