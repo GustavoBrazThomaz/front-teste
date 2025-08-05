@@ -27,3 +27,12 @@ export const headerGroupStyles = style({
   alignItems: "center",
   marginLeft: "2rem",
 });
+
+export const headerTitleStyle = style({
+  fontSize: "1.5rem !important",
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      fontSize: "2rem !important",
+    },
+  },
+});

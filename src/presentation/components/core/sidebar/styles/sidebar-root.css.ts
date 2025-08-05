@@ -12,7 +12,14 @@ export const sidebarRootStyle = style({
   borderRadius: "0 !important",
   zIndex: 1,
   ":hover": {
-    width: "32rem",
+    width: "20rem",
+  },
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      ":hover": {
+        width: "32rem",
+      },
+    },
   },
 });
 
@@ -40,15 +47,15 @@ export const sideBarDefenseLogoStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      width: "18rem",
+      width: "10rem",
       height: "5rem",
-      display: "none",
+      display: "inline-flex",
       marginTop: "2.2rem",
       opacity: 1,
       transition: "opacity 0.5s ease-in-out",
       "@media": {
         [`screen and ${BREAKPOINTS.sm}`]: {
-          display: "inline-flex",
+          width: "18rem",
         },
       },
     },
@@ -63,12 +70,7 @@ export const sideBarDefenseLogoSmallStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "flex",
-      "@media": {
-        [`screen and ${BREAKPOINTS.sm}`]: {
-          display: "none",
-        },
-      },
+      display: "none",
     },
   },
 });
@@ -105,15 +107,9 @@ export const sideBarIntelbrasLogoStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "none",
+      display: "flex",
       width: "10rem",
       height: "1.8rem",
-
-      "@media": {
-        [`screen and ${BREAKPOINTS.sm}`]: {
-          display: "flex",
-        },
-      },
     },
   },
 });

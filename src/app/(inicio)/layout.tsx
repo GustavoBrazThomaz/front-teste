@@ -21,7 +21,9 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           <Header.Root>
             <Header.LeftGroup className={styles.headerGroupStyles}>
               <Title.Root size="small">
-                <Title.Text>Painel de controle</Title.Text>
+                <Title.Text className={styles.headerTitleStyle}>
+                  Painel de controle
+                </Title.Text>
               </Title.Root>
             </Header.LeftGroup>
             <Header.RightGroup className={styles.headerGroupStyles}>
