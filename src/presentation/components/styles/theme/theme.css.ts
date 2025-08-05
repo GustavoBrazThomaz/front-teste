@@ -28,6 +28,7 @@ export const theme = createGlobalTheme(":root", {
     hoveredAlert: COLOR_PALETTE.red[400],
 
     error: COLOR_PALETTE.red[300],
+    info: COLOR_PALETTE.blue[500],
 
     disabledBackground: COLOR_PALETTE.neutral[750],
     disabledForeground: COLOR_PALETTE.neutral[300],
