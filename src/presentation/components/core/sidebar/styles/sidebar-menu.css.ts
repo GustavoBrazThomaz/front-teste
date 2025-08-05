@@ -8,7 +8,6 @@ import {
 } from "@components/core/highlight/styles/highlight-root.css";
 import { theme } from "@components/styles/theme/theme.css";
 import { sidebarRootStyle } from "./sidebar-root.css";
-import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 
 export const sidebarAccordionRootStyle = style({
   gap: "0.8rem",
@@ -26,34 +25,24 @@ export const sidebarAccordionTriggerItemStyle = style({});
 export const sidebarMenuItemStyle = style({
   width: "100%",
   textDecoration: "none",
-  padding: "1rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   gap: "1.4rem",
+  padding: "1.4rem 2.2rem",
 
-  "@media": {
-    [`screen and ${BREAKPOINTS.sm}`]: {
-      padding: "1.4rem 2.2rem",
-    },
-  },
 });
 
 export const sidebarMenuItemDisabledStyle = style({
   width: "100%",
   marginLeft: "1rem",
   textDecoration: "none",
-  padding: "1rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   gap: "1rem",
 
-  "@media": {
-    [`screen and ${BREAKPOINTS.sm}`]: {
-      padding: "1.4rem 2.2rem",
-    },
-  },
+  padding: "1.4rem 2.2rem",
 });
 
 export const sidebarMenuItemLinkStyle = style([
@@ -65,13 +54,8 @@ export const sidebarMenuItemLinkStyle = style([
     },
     selectors: {
       [`${sidebarRootStyle}:hover &`]: {
-        justifyContent: "center",
         fontSize: "1.6rem",
-        "@media": {
-          [`screen and ${BREAKPOINTS.sm}`]: {
-            justifyContent: "flex-start",
-          },
-        },
+        justifyContent: "flex-start",
       },
     },
   },
@@ -107,16 +91,11 @@ export const sidebarMenuSubItemStyle = style([
       [`${sidebarRootStyle}:hover &`]: {
         display: "flex",
         justifyContent: "center",
-        // paddingLeft: "1rem",
+        paddingLeft: "6rem",
         background: "red",
         paddingBottom: "1.6rem",
         paddingTop: "1.6rem",
         fontSize: "1.4rem",
-        "@media": {
-          [`screen and ${BREAKPOINTS.sm}`]: {
-            paddingLeft: "6rem",
-          },
-        },
       },
     },
   },
@@ -152,13 +131,7 @@ export const sidebarTextStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: "none",
-
-      "@media": {
-        [`screen and ${BREAKPOINTS.sm}`]: {
-          display: "inline-flex",
-        },
-      },
+      display: "inline-flex",
     },
   },
 });

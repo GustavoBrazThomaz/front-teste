@@ -26,6 +26,12 @@ export const centralsTotalText = style({
 });
 
 export const loadingCentralsTotalStyle = style({
-  width: "20rem",
+  width: "8rem",
   height: "4rem",
+
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      width: "20rem",
+    },
+  },
 });
