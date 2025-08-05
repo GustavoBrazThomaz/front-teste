@@ -21,10 +21,11 @@ import { Title } from "@components/core/title";
 import { useDataTableState } from "../../hooks/ui/use-data-table-state";
 import { ScrollArea } from "@components/core/scroll-area";
 import { DataTableLoading } from "./loading";
+import { Empty } from "@components/core/empty";
 
 export function DataTable<T>(props: DataTableProps<T>) {
   const { data, columns, total, title, description, isLoading } = props;
-
+  const hasData = data && data.length === 0;
   const {
     sorting,
     setSorting,
@@ -77,68 +78,78 @@ export function DataTable<T>(props: DataTableProps<T>) {
           </Title.Item>
         </Title.Root>
 
-        <div className={styles.itemsPerPageContainerStyle}>
-          <p>Itens por página:</p>
-          <Select
-            defaultValue={pagination.pageSize.toString() ?? "10"}
-            options={constants.itemsPerPage}
-            onChange={(option) => itemsPerPage(option as SelectOption)}
-          />
-        </div>
+        {!hasData ? (
+          <div className={styles.itemsPerPageContainerStyle}>
+            <p>Itens por página:</p>
+            <Select
+              defaultValue={pagination.pageSize.toString() ?? "10"}
+              options={constants.itemsPerPage}
+              onChange={(option) => itemsPerPage(option as SelectOption)}
+            />
+          </div>
+        ) : null}
       </div>
-      
-      <ScrollArea orientation="horizontal" size="medium">
-        <Table.Root>
-          <Table.Head>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <Table.Row key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <Table.Cell
-                    onClick={header.column.getToggleSortingHandler()}
-                    key={header.id}
-                    hasSort={header.column.getCanSort()}
-                    sortDirection={header.column.getIsSorted()}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </Table.Cell>
-                ))}
-              </Table.Row>
-            ))}
-          </Table.Head>
-          <Table.Body>
-            {table.getRowModel().rows.map((row) => (
-              <Table.Row
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <Table.Cell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Table.Cell>
-                ))}
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </ScrollArea>
+      {hasData ? (
+        <Empty />
+      ) : (
+        <ScrollArea orientation="horizontal" size="medium">
+          <Table.Root>
+            <Table.Head>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <Table.Row key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <Table.Cell
+                      onClick={header.column.getToggleSortingHandler()}
+                      key={header.id}
+                      hasSort={header.column.getCanSort()}
+                      sortDirection={header.column.getIsSorted()}
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
+              ))}
+            </Table.Head>
+            <Table.Body>
+              {table.getRowModel().rows.map((row) => (
+                <Table.Row
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <Table.Cell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </ScrollArea>
+      )}
 
-      <Pagination.Root>
-        <Pagination.Previous
-          previousPage={previousPage}
-          disablePreviousPage={!table.getCanPreviousPage()}
-        />
-        <Pagination.Count
-          pageTotal={table.getPageCount()}
-          pageNumber={table.getState().pagination.pageIndex + 1}
-        />
-        <PaginationNext
-          disableNextPage={!table.getCanNextPage()}
-          nextPage={nextPage}
-        />
-      </Pagination.Root>
+      {!hasData ? (
+        <Pagination.Root>
+          <Pagination.Previous
+            previousPage={previousPage}
+            disablePreviousPage={!table.getCanPreviousPage()}
+          />
+          <Pagination.Count
+            pageTotal={table.getPageCount()}
+            pageNumber={table.getState().pagination.pageIndex + 1}
+          />
+          <PaginationNext
+            disableNextPage={!table.getCanNextPage()}
+            nextPage={nextPage}
+          />
+        </Pagination.Root>
+      ) : null}
     </React.Fragment>
   );
 }
