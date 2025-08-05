@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from "@components/styles/theme/breakpoints";
 import { theme } from "@components/styles/theme/theme.css";
 import { style } from "@vanilla-extract/css";
 
@@ -22,10 +23,19 @@ export const subTitleStyle = style({
 
 export const topCardContainer = style({
   display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
+  gridTemplateColumns: "repeat(1, 1fr)",
   width: "100%",
   gap: "1.5rem",
   fontSize: "2rem",
+  "@media": {
+    [`screen and ${BREAKPOINTS.sm}`]: {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+
+    [`screen and ${BREAKPOINTS.md}`]: {
+      gridTemplateColumns: "repeat(4, 1fr)",
+    },
+  },
 });
 
 export const topCardTitle = style({
@@ -45,10 +55,15 @@ export const topCardDescription = style({
 export const bottomCardsContainer = style({
   marginTop: "2rem",
   display: "grid",
-  gridTemplateColumns: "repeat(2, 1fr)",
+  gridTemplateColumns: "repeat(1, 1fr)",
   width: "100%",
   gap: "1.5rem",
   fontSize: "2rem",
+  "@media": {
+    [`screen and ${BREAKPOINTS.md}`]: {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+  },
 });
 
 export const statusGreen = style({
