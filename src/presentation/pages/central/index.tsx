@@ -2,20 +2,19 @@
 import { Button } from "@components/core/button";
 import { Card } from "@components/core/card";
 import { Container } from "@components/core/container";
-import { Skeleton } from "@components/core/skeleton";
 import { Title } from "@components/core/title";
 import { EditIcon } from "@components/icons/edit-item";
 import { TrashIcon } from "@components/icons/trash";
 import { useCentralStore } from "@stores/use-central-store";
 import { useDeleteModalStore } from "@stores/use-delete-modal-store";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ColumnDef } from "@tanstack/react-table";
-import { CentralFormModal } from "@ui/central-form-modal";
-import { DataTable } from "@ui/data-table";
-import { DeleteModal } from "@ui/delete-modal";
+import { DataTableLoading } from "@ui/data-table/loading";
+import { DataTableProps } from "@ui/data-table/types";
 import { SearchCentralForm } from "@ui/search-central-form";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useMemo } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React, { ComponentType, useEffect, useMemo } from "react";
 import { useCentralMutation } from "../../hooks/centrals/use-central-mutation";
 import { useCentralsQueryParams } from "../../hooks/centrals/use-central-query-params";
 import { useCentralsQuery } from "../../hooks/centrals/use-centrals-query";
@@ -23,7 +22,20 @@ import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download
 import * as constants from "./constants";
 import * as styles from "./styles/central-page.css";
 import { CentralTableType } from "./types";
-import { Empty } from "@components/core/empty";
+const DynamicDataTable = dynamic(
+  () => import("@ui/data-table").then((mod) => mod.DataTable),
+  {
+    loading: () => <DataTableLoading />,
+  }
+) as ComponentType<DataTableProps<CentralTableType>>;
+
+const DynamicCentralFormModal = dynamic(() =>
+  import("@ui/central-form-modal").then((mod) => mod.CentralFormModal)
+);
+
+const DynamicDeleteModal = dynamic(() =>
+  import("@ui/delete-modal").then((mod) => mod.DeleteModal)
+);
 
 export function CentralPage() {
   const { toggleCentralModal, centralsTotal } = useCentralStore();
@@ -101,12 +113,10 @@ export function CentralPage() {
           </div>
         </div>
 
-        <Skeleton />
-
         <SearchCentralForm />
 
         <Card.Root className={styles.tableContainerStyle}>
-          <DataTable<CentralTableType>
+          <DynamicDataTable
             isLoading={isLoading}
             title="Lista de Centrais"
             description={`${dataTableTotal} items encontrados`}
@@ -117,13 +127,13 @@ export function CentralPage() {
         </Card.Root>
       </Container>
 
-      <DeleteModal
+      <DynamicDeleteModal
         title="Excluir Central"
         description="Você tem certeza de que deseja excluir esta central?"
         handleDelete={handleDeleteCentral}
       />
-      <CentralFormModal />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <DynamicCentralFormModal />
+      {/* <ReactQueryDevtools initialIsOpen={false}/> */}
     </React.Fragment>
   );
 }
