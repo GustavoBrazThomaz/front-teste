@@ -23,6 +23,7 @@ import { useDownloadCentralCsvMutation } from "../../hooks/centrals/use-download
 import * as constants from "./constants";
 import * as styles from "./styles/central-page.css";
 import { CentralTableType } from "./types";
+import { Empty } from "@components/core/empty";
 
 export function CentralPage() {
   const { toggleCentralModal, centralsTotal } = useCentralStore();
@@ -108,7 +109,7 @@ export function CentralPage() {
           <DataTable<CentralTableType>
             isLoading={isLoading}
             title="Lista de Centrais"
-            description={`${dataTableTotal} centrais encontradas`}
+            description={`${dataTableTotal} items encontrados`}
             data={data}
             columns={tableColumns}
             total={dataTableTotal}

@@ -11,12 +11,15 @@ import { searchCentralSchema, searchCentralType } from "./schema";
 import * as styles from "./styles/search-central-form.css";
 
 export const SearchCentralForm = () => {
-  const { register, handleSubmit } = useForm<searchCentralType>({
+  const searchParams = useSearchParams();
+  const { register, handleSubmit, reset } = useForm<searchCentralType>({
     resolver: zodResolver(searchCentralSchema),
+    defaultValues: {
+      search: searchParams.get("search") ?? "",
+    },
   });
   const { modelsSelectOptions } = useModelsQuery();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const excludedKeys = ["page", "items_per_page"];
   const hasOtherFilters = [...searchParams.keys()].some(
     (key) => !excludedKeys.includes(key)
@@ -50,6 +53,11 @@ export const SearchCentralForm = () => {
     router.replace(`?${params}`);
   };
 
+const handleClearFilters = () => {
+  router.replace("/centrais")
+  reset()
+}
+
   return (
     <Card.Root>
       <form onSubmit={handleSubmit(searchCentral)}>
@@ -70,7 +78,7 @@ export const SearchCentralForm = () => {
           />
           {hasOtherFilters && (
             <Button
-              onClick={() => router.replace("/centrais")}
+              onClick={handleClearFilters}
               type="button"
               className={styles.clearFiltersButtonStyle}
             >
