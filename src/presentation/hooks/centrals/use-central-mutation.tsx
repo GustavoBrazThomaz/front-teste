@@ -22,6 +22,10 @@ export const useCentralMutation = () => {
         queryKey: ["centrals", { ...queryParams }],
       });
       incCentralsTotal();
+      toast.success("Central criada com sucesso");
+    },
+    onError(error) {
+      toast.error(error.message);
     },
   });
 
@@ -32,6 +36,10 @@ export const useCentralMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["centrals", { ...queryParams }],
       });
+      toast.success("Central atualizada com sucesso");
+    },
+    onError(error) {
+      toast.error(error.message);
     },
   });
 
@@ -42,6 +50,9 @@ export const useCentralMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["centrals", { ...queryParams }],
       });
+    },
+    onError(error) {
+      toast.error(error.message);
     },
   });
 

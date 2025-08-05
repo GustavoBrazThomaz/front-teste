@@ -1,7 +1,12 @@
 import { CentralEntity } from "@domain/entities/central-entity";
+import { axiosErrorResolver } from "@helpers/axiosErrorResolver";
 import { API } from "@infra/http/client";
 
 export async function putCentral(central: CentralEntity) {
-  await API.put(`/centrals/${central.id}`, central);
-  return central;
+  try {
+    await API.put(`/centrals/${central.id}`, central);
+    return central;
+  } catch (error) {
+    axiosErrorResolver(error);
+  }
 }
