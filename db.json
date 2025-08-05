@@ -19,12 +19,6 @@
       "modelId": "1"
     },
     {
-      "id": "a1b2c3d4-3333-4f00-cccc-333333333333",
-      "name": "Legal",
-      "mac": "10:E0:09:00:50:04",
-      "modelId": "4"
-    },
-    {
       "id": "a1b2c3d4-4444-4f00-dddd-444444444444",
       "name": "Central 9",
       "mac": "10:E0:09:00:50:05",
@@ -41,18 +35,6 @@
       "name": "Central 14",
       "mac": "10:E0:09:00:50:0A",
       "modelId": "4"
-    },
-    {
-      "id": "ed430bb6-3e9b-4cfe-9805-c2a1e148d3e6",
-      "name": "Nova central",
-      "mac": "43:F3:4F:34:Y5:HY",
-      "modelId": "3"
-    },
-    {
-      "id": "663ef7d2-7333-4c0c-9e86-c1ca829ad0f6",
-      "name": "Lukinhas",
-      "mac": "CZ:HC:BN:MZ:BJ:K",
-      "modelId": "2"
     },
     {
       "id": "a1b2c3d4-1010-4f00-aaaa-101010101010",
@@ -95,36 +77,6 @@
       "name": "Central 21",
       "mac": "10:E0:09:00:50:11",
       "modelId": "1"
-    },
-    {
-      "id": "a1b2c3d4-1717-4f00-bcde-171717171717",
-      "name": "Central 22",
-      "mac": "10:E0:09:00:50:12",
-      "modelId": "2"
-    },
-    {
-      "id": "a1b2c3d4-1818-4f00-cdef-181818181818",
-      "name": "Central 23",
-      "mac": "10:E0:09:00:50:13",
-      "modelId": "3"
-    },
-    {
-      "id": "a1b2c3d4-1919-4f00-def0-191919191919",
-      "name": "Central 24",
-      "mac": "10:E0:09:00:50:14",
-      "modelId": "4"
-    },
-    {
-      "id": "66d6f9a4-799e-42a7-af5d-d7ab06003605",
-      "name": "afsdf",
-      "mac": "SD:FG:SG:G5:4G:54",
-      "modelId": "3"
-    },
-    {
-      "id": "e585f93f-4179-42e1-b922-f7cee3a46256",
-      "name": "dasdasd",
-      "mac": "AD:AS:DA:DA:DA:SD",
-      "modelId": "4"
     }
   ],
   "models": [

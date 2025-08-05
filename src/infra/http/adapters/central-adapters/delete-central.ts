@@ -3,7 +3,8 @@ import { API } from "@infra/http/client";
 
 export async function deleteCentralById(id: string) {
   try {
-    await API.delete(`/centrals/${id}`);
+    const response = await API.delete(`/centrals/${id}`);
+    return response;
   } catch (error) {
     axiosErrorResolver(error);
   }

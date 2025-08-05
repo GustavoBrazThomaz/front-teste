@@ -18,7 +18,8 @@ export const multiSelectStyle = style({
   width: "100%",
   "@media": {
     [`screen and ${BREAKPOINTS.sm}`]: {
-      width: "23rem",
+      minWidth: "20rem",
+      width: "25rem",
     },
   },
 });
@@ -28,6 +29,7 @@ export const clearFiltersButtonStyle = style({
   "@media": {
     [`screen and ${BREAKPOINTS.sm}`]: {
       width: "20rem",
+      minWidth: "15rem",
     },
   },
 });

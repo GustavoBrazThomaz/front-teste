@@ -51,9 +51,6 @@ export const useCentralMutation = () => {
         queryKey: ["centrals", { ...queryParams }],
       });
     },
-    onError(error) {
-      toast.error(error.message);
-    },
   });
 
   const handleDeleteCentral = (id: string) => {
@@ -70,7 +67,7 @@ export const useCentralMutation = () => {
         cached.filter((central: CentralEntity) => central.id !== id)
     );
 
-    toast.error(
+    toast.info(
       <UndoDeleteToast
         onUndo={() => {
           undo = true;
