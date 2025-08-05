@@ -10,10 +10,14 @@ export function downloadCsv<T extends object>(data: T[], filename: string) {
     ...data.map((row) =>
       keys
         .map((key) => {
-        const cell = row[key];
-          const escaped =
-            typeof cell === "string" ? `"${cell.replace(/"/g, '""')}"` : cell;
-          return escaped;
+          const cell = row[key];
+
+          if (typeof cell === "string") {
+            const escaped = `"${(cell as string).replace(/"/g, '""')}"`;
+            return escaped;
+          }
+
+          return cell;
         })
         .join(",")
     ),
