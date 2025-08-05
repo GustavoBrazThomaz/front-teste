@@ -65,7 +65,7 @@ export function CentralPage() {
   }, [searchParams]);
 
   const dataTableTotal = useMemo(() => {
-    const excludedKeys = ["page", "items_per_page"];
+    const excludedKeys = ["page", "items_per_page", "sortBy", "order"];
     const hasOtherFilters = [...searchParams.keys()].some(
       (key) => !excludedKeys.includes(key)
     );
