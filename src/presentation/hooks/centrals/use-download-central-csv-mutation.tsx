@@ -9,7 +9,9 @@ export const useDownloadCentralCsvMutation = (params: getCentralsParams) => {
   const downloadCentralCsv = useMutation({
     mutationKey: ["centrals", "csv", { ...params, limit: undefined }],
     mutationFn: () => getCentrals({ ...params, limit: undefined }),
-    onSuccess: (data: CentralTableType[]) => {
+    onSuccess: (data) => {
+      if (!data) return;
+
       const dataToCsv = data.map((item) => {
         return {
           Nome: item.name,

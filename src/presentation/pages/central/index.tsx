@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@components/core/button";
 import { Card } from "@components/core/card";
 import { Container } from "@components/core/container";
