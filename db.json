@@ -20,7 +20,7 @@
     },
     {
       "id": "a1b2c3d4-3333-4f00-cccc-333333333333",
-      "name": "Central 8",
+      "name": "Legal",
       "mac": "10:E0:09:00:50:04",
       "modelId": "4"
     },
@@ -112,6 +112,18 @@
       "id": "a1b2c3d4-1919-4f00-def0-191919191919",
       "name": "Central 24",
       "mac": "10:E0:09:00:50:14",
+      "modelId": "4"
+    },
+    {
+      "id": "66d6f9a4-799e-42a7-af5d-d7ab06003605",
+      "name": "afsdf",
+      "mac": "SD:FG:SG:G5:4G:54",
+      "modelId": "3"
+    },
+    {
+      "id": "e585f93f-4179-42e1-b922-f7cee3a46256",
+      "name": "dasdasd",
+      "mac": "AD:AS:DA:DA:DA:SD",
       "modelId": "4"
     }
   ],

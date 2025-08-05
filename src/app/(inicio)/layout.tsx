@@ -8,6 +8,7 @@ import * as styles from "./styles.css";
 import { CentralsTotal } from "@ui/centrals-total";
 import { ReactQueryProvider } from "@config/react-query-provider";
 import { ToastContainer } from "react-toastify";
+import { toastStyle } from "@styles/toast.css";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
@@ -30,7 +31,12 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
           {children}
         </div>
       </main>
-      <ToastContainer theme="dark" autoClose={3000} />
+      <ToastContainer
+        theme="dark"
+        autoClose={3000}
+        className={toastStyle}
+        position="bottom-right"
+      />
     </ReactQueryProvider>
   );
 }
